@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 9 La probabilité a posteriori | Initiation à l’approche bayésienne du traitement des données</title>
+<meta name="author" content="Nicolas Stefaniak">
+<meta name="description" content="Dans l’approche bayésienne, déterminer la probabilité a posteriori suffit pour se faire une opinion concernant une théorie. Selon Bayes, P(H|D) est proportionnel à \(P(D|H) \times P(H)\),...">
+<meta name="generator" content="bookdown 0.43 with bs4_book()">
+<meta property="og:title" content="Chapter 9 La probabilité a posteriori | Initiation à l’approche bayésienne du traitement des données">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Dans l’approche bayésienne, déterminer la probabilité a posteriori suffit pour se faire une opinion concernant une théorie. Selon Bayes, P(H|D) est proportionnel à \(P(D|H) \times P(H)\),...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 9 La probabilité a posteriori | Initiation à l’approche bayésienne du traitement des données">
+<meta name="twitter:description" content="Dans l’approche bayésienne, déterminer la probabilité a posteriori suffit pour se faire une opinion concernant une théorie. Selon Bayes, P(H|D) est proportionnel à \(P(D|H) \times P(H)\),...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+<script src="libs/tabwid-1.1.3/tabwid.js"></script><link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><script src="libs/plotly-binding-4.11.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script><link href="libs/panelset-0.3.0/panelset.css" rel="stylesheet">
+<script src="libs/panelset-0.3.0/panelset.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+          margin-bottom: 0em;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Initiation à l’approche bayésienne du traitement des données</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li><a class="" href="remerciements.html">Remerciements</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="le-th%C3%A9or%C3%A8me-de-bayes.html"><span class="header-section-number">2</span> Le théorème de Bayes</a></li>
+<li><a class="" href="accumuler-les-informations..html"><span class="header-section-number">3</span> Accumuler les informations.</a></li>
+<li><a class="" href="les-axiomes-des-probabilit%C3%A9s.html"><span class="header-section-number">4</span> Les axiomes des probabilités</a></li>
+<li><a class="" href="quelques-rappels-sur-lapproche-de-neyman-pearson.html"><span class="header-section-number">5</span> Quelques rappels sur l’approche de Neyman-Pearson</a></li>
+<li><a class="" href="les-probabilit%C3%A9s-objectif-ou-subjectif.html"><span class="header-section-number">6</span> Les probabilités : objectif ou subjectif</a></li>
+<li><a class="" href="la-probabilit%C3%A9-a-priori.html"><span class="header-section-number">7</span> La probabilité a priori</a></li>
+<li><a class="" href="la-vraisemblance.html"><span class="header-section-number">8</span> La vraisemblance</a></li>
+<li><a class="active" href="la-probabilit%C3%A9-a-posteriori.html"><span class="header-section-number">9</span> La probabilité a posteriori</a></li>
+<li><a class="" href="le-facteur-de-bayes.html"><span class="header-section-number">10</span> Le facteur de Bayes</a></li>
+<li><a class="" href="comparaison-avec-lapproche-fr%C3%A9quentiste.html"><span class="header-section-number">11</span> Comparaison avec l’approche fréquentiste</a></li>
+<li><a class="" href="exercices.html"><span class="header-section-number">12</span> Exercices</a></li>
+<li><a class="" href="conclusions.html"><span class="header-section-number">13</span> Conclusions</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="la-probabilité-a-posteriori" class="section level1" number="9">
+<h1>
+<span class="header-section-number">9</span> La probabilité a posteriori<a class="anchor" aria-label="anchor" href="#la-probabilit%C3%A9-a-posteriori"><i class="fas fa-link"></i></a>
+</h1>
+<p>Dans l’approche bayésienne, déterminer la probabilité <em>a posteriori</em>
+suffit pour se faire une opinion concernant une théorie.</p>
+<p>Selon Bayes, P(H|D) est proportionnel à <span class="math inline">\(P(D|H) \times P(H)\)</span>,
+c’est-à-dire que l’a posteriori est donné par la vraisemblance
+multipliée par l’a priori. Ainsi, dans notre exemple, la probabilité <em>a
+posteriori</em> pour l’hypothèse nulle <span class="math inline">\(P(D|H_0)\)</span>, la probabilité <em>a
+posteriori</em> vaut
+<span class="math inline">\(P(H_{QI_{100}}|D) \text{ est proportionnel à } P(D|H_{QI_{100}}) \times P(H_{QI_{100}})\)</span>.
+De même, la probabilité a posteriori pour l’hypothèse alternative
+<span class="math inline">\(P(D|H_1)\)</span> est égale à
+<span class="math inline">\(P(H_{QI_{122}}|D) \text{ est proportionnel à } P(D|H_{QI_{122}}) \times P(H_{QI_{122}})\)</span></p>
+<p>En créant une ditribution <em>a priori</em>, on formalise le fait que certaines
+tailles d’effet sont plus probables que d’autres. Chacune de ces tailles
+d’effet représente une hypothèse particulière. Nous devons multiplier
+chaque hypothèse de la distribution <em>a priori</em> par la vraisemblance pour
+obtenir la distribution <em>a posteriori</em>. Quand on a fait cela, on
+remarque que la distribution <em>a posteriori</em> est essentiellement dominée
+par la vraisemblance (voir Figure) qui illustre la
+manière dont la distribution <em>a posteriori</em> évolue pour différents
+distributions <em>a priori</em> en fonction de la vraisemblance des données qui
+atteint son maximum pour la zone où la taille d’effet est le plus
+probable.</p>
+<div class="figure">
+<span style="display:block;" id="fig:distrpost"></span>
+<img src="posterior/posterior.gif" alt="Représentation de la distribution a posteriori en fonction de différentes distributions a priori, de la vraisemblance et de différentes tailles d'effet"><p class="caption">
+Figure 9.1: Représentation de la distribution a posteriori en fonction de différentes distributions a priori, de la vraisemblance et de différentes tailles d’effet
+</p>
+</div>
+<p>Donc, même si des personnes partent avec des distribution <em>a priori</em>
+très différentess, en recueillant suffisamment de données, tant que les
+distributions <em>a priori</em> sont suffisamment étalées et autorisent une
+probabilité non négligeable dans la région correspondant à la valeur
+réelle de la population, les distributions <em>a posteriori</em>, étant
+fortement déterminées par la vraisemblance, finiront par être très
+similaires <span class="citation">(<a href="references.html#ref-Edwards1963">Edwards et al., 1963</a>)</span>. En ce sens, les statistiques bayésiennes
+soulignent la nature objective de la science : différentes opinions de
+départ convergeront lorsque les données seront suffisantes. La
+vraisemblance, qui représente les données, finit par dominer les
+conclusions.</p>
+<p>Résumer les résultats par une distribution a posteriori peut être
+déroutant pour les scientifiques habitués à l’approche fréquentiste.
+Avoir une probabilité, c’est bien mais qu’en fait-on ? Cela pourrait
+être rassurant de pouvoir se positionner par rapport à une hypothèse
+nulle. Nous verrons comment le faire dans la section conacrée aux
+<a href="le-facteur-de-bayes.html#le-facteur-de-bayes">Facteur de Bayes</a>.</p>
+<div id="lintervalle-de-crédibilité" class="section level2" number="9.1">
+<h2>
+<span class="header-section-number">9.1</span> l’intervalle de crédibilité<a class="anchor" aria-label="anchor" href="#lintervalle-de-cr%C3%A9dibilit%C3%A9"><i class="fas fa-link"></i></a>
+</h2>
+<p>La Figure <a href="la-probabilit%C3%A9-a-posteriori.html#fig:distrpost">9.1</a> va permettre d’aider à comprendre à quoi correspond l’intervalle de crédibilité, également appelé intervalle de
+probabilité ou région de plus haute densité (RHD). Il faut comprendre que cet intervalle n’est pas spécifique à la distribution <em>a
+posteriori</em>,</p>
+<p>Un intervalle de crédibilité est utilisé pour caractérisé une distribution probabiliste. Il s’agit de la probabilité qu’un paramètre qu’on ne peut pas directement observer ait une probabilité particulière (par exemple 95%) d’être à l’intérieur de cet intervalle.</p>
+<p>Cette notion est assez proche de l’intervalle de confiance dans l’approche fréquentiste mais s’en distingue conceptuellement sur un aspect important : dans l’approche fréquentiste, l’intervalle de confiance renvoie au fait que, si on répète un grand nombre de fois la même expérience, dans 95% des situations, la valeur de la population pour le paramètre d’intérêt sera inclus à l’intérieur des limites de l’intervalle estimé à partir de l’échantillon. Ainsi, les limites sont aléatoires dans l’intervalle de confiance alors que le paramètre est fixe. Dans l’approche bayésienne, l’idée est un peu différente car, non seulement il dépend de la distribution a priori mais aussi parce qu’on ne considère pas que ce sont les limites qui sont aléatoires mais ce qui peut changer c’est le paramètre et non l’intervalle. Imaginons que une intervalle de crédibilité entre 30 et 40, cet intervalle est centré sur la moyenne de la
+distribution a posteriori, c’est-à-dire 35, cela signifie qu’une valeur du paramètre égale à 35 est la valeur la plus probable, 34 et 36 sont un peu moins probables mais raisonnablement probables et il est très peu probable que le paramètre ait une valeur de 29 ou de 41.</p>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="la-vraisemblance.html"><span class="header-section-number">8</span> La vraisemblance</a></div>
+<div class="next"><a href="le-facteur-de-bayes.html"><span class="header-section-number">10</span> Le facteur de Bayes</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#la-probabilit%C3%A9-a-posteriori"><span class="header-section-number">9</span> La probabilité a posteriori</a></li>
+<li><a class="nav-link" href="#lintervalle-de-cr%C3%A9dibilit%C3%A9"><span class="header-section-number">9.1</span> l’intervalle de crédibilité</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Initiation à l’approche bayésienne du traitement des données</strong>" was written by Nicolas Stefaniak. It was last built on 2025-07-03.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

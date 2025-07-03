@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 7 La probabilité a priori | Initiation à l’approche bayésienne du traitement des données</title>
+<meta name="author" content="Nicolas Stefaniak">
+<meta name="description" content="Nous avons précédemment vu que le théorème de Bayes nécessitait de connaître la probabilité de l’hypothèse avant d’avoir recueilli les données. Cela peut sembler étrange à première vue à des...">
+<meta name="generator" content="bookdown 0.43 with bs4_book()">
+<meta property="og:title" content="Chapter 7 La probabilité a priori | Initiation à l’approche bayésienne du traitement des données">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Nous avons précédemment vu que le théorème de Bayes nécessitait de connaître la probabilité de l’hypothèse avant d’avoir recueilli les données. Cela peut sembler étrange à première vue à des...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 7 La probabilité a priori | Initiation à l’approche bayésienne du traitement des données">
+<meta name="twitter:description" content="Nous avons précédemment vu que le théorème de Bayes nécessitait de connaître la probabilité de l’hypothèse avant d’avoir recueilli les données. Cela peut sembler étrange à première vue à des...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+<script src="libs/tabwid-1.1.3/tabwid.js"></script><link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><script src="libs/plotly-binding-4.11.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script><link href="libs/panelset-0.3.0/panelset.css" rel="stylesheet">
+<script src="libs/panelset-0.3.0/panelset.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+          margin-bottom: 0em;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Initiation à l’approche bayésienne du traitement des données</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li><a class="" href="remerciements.html">Remerciements</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="le-th%C3%A9or%C3%A8me-de-bayes.html"><span class="header-section-number">2</span> Le théorème de Bayes</a></li>
+<li><a class="" href="accumuler-les-informations..html"><span class="header-section-number">3</span> Accumuler les informations.</a></li>
+<li><a class="" href="les-axiomes-des-probabilit%C3%A9s.html"><span class="header-section-number">4</span> Les axiomes des probabilités</a></li>
+<li><a class="" href="quelques-rappels-sur-lapproche-de-neyman-pearson.html"><span class="header-section-number">5</span> Quelques rappels sur l’approche de Neyman-Pearson</a></li>
+<li><a class="" href="les-probabilit%C3%A9s-objectif-ou-subjectif.html"><span class="header-section-number">6</span> Les probabilités : objectif ou subjectif</a></li>
+<li><a class="active" href="la-probabilit%C3%A9-a-priori.html"><span class="header-section-number">7</span> La probabilité a priori</a></li>
+<li><a class="" href="la-vraisemblance.html"><span class="header-section-number">8</span> La vraisemblance</a></li>
+<li><a class="" href="la-probabilit%C3%A9-a-posteriori.html"><span class="header-section-number">9</span> La probabilité a posteriori</a></li>
+<li><a class="" href="le-facteur-de-bayes.html"><span class="header-section-number">10</span> Le facteur de Bayes</a></li>
+<li><a class="" href="comparaison-avec-lapproche-fr%C3%A9quentiste.html"><span class="header-section-number">11</span> Comparaison avec l’approche fréquentiste</a></li>
+<li><a class="" href="exercices.html"><span class="header-section-number">12</span> Exercices</a></li>
+<li><a class="" href="conclusions.html"><span class="header-section-number">13</span> Conclusions</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="la-probabilité-a-priori" class="section level1" number="7">
+<h1>
+<span class="header-section-number">7</span> La probabilité a priori<a class="anchor" aria-label="anchor" href="#la-probabilit%C3%A9-a-priori"><i class="fas fa-link"></i></a>
+</h1>
+<p>Nous avons précédemment vu que le théorème de Bayes nécessitait de connaître la probabilité de l’hypothèse avant d’avoir recueilli les données. Cela peut sembler étrange à première vue à des chercheurs et chercheuses biberonné·es à l’approche fréquentiste. On ne vous a jamais demandé de réfléchir à la probabilité de votre hypothèse.</p>
+<p>Pourtant, si on y réfléchit un instant, quand on fait une analyse fréquentiste, par exemple, un <em>t de Student</em>, on a déjà toute une série de présupposés, comme la distribution des données suit une distribution normale, les variances sont homogènes, ou encore l’échantillon est suffisamment grand pour mettre en évidence l’effet qu’on cherche à observer. Pourquoi ne pourrait-on pas avoir un présupposé supplémentaire sur la probabilité que l’hypothèse est vraie ?</p>
+<p>La première fois qu’on est confronté à cette situation, on peut se questionner sur la manière dont il est possible d’attribuer une valeur précise à une hypothèse. On peut également être perturbé par le fait que l’inférence bayésienne requiert qu’on ait à donner une opinion sur la pertinence d’une théorie. Après tout, la science doit être objective dans le sens où quiconque essaierait de reproduire des résultats devraient obtenir les mêmes résultats <span class="citation">(<a href="references.html#ref-popper1959logic">K. R. Popper, 1959</a>)</span>. Or, si pour appliquer Bayes, on donne notre opinion, une sorte de niveau de crédit qu’on accorde à une théorie, comment une personne qui ne partagerait pas notre opinion pourrait obtenir les mêmes réultats ? Nous répondrons à cette question plus loin et commençons par nous rendre compte que, en réalité, ce n’est ni si compliqué, ni si abberant et que, en réalité, vous le faites déjà.</p>
+<div id="une-approche-intuitive" class="section level2" number="7.1">
+<h2>
+<span class="header-section-number">7.1</span> Une approche intuitive<a class="anchor" aria-label="anchor" href="#une-approche-intuitive"><i class="fas fa-link"></i></a>
+</h2>
+<p>Un des points critiques de l’approche bayésienne est que les personnes qui souhaitent changer de pratique pour adhérer à l’approche bayéienne se retrouvent souvent perdu·e quand il s’agit de réfléchir à la probabilité a priori d’une théorie. Pourtant, si on y réfléchit un instant, demndez-vous si les scientifiques accordent vraiment la même probabilité à toutes les théories et se rendre compte que, en réalité, ce n’est pas le cas. N’y a-t-il pas des points de vue divergents sur l’explication des données ? N’y a-t-il pas des guerres de chapelle pour un peu près toute les théories de la psychologie, et de la science en général. Qu’en est-il des personnes qui affirment que les vaccins sont non seulement inefficaces mais sont à l’origine des plus graves maladies, comme les troubles du spectre autistique ? En physique, l’existence même de la théorie des cordes est controversée. Est-ce que toutes les personnes qui essaient de proposer un cadre théorique cohérent en s’appuyant sur cette théorie doivent être considérés comme des hurlubelus ?</p>
+<p>Vous-même, n’êtes-vous pas disposé·e à adhérer plus à certaines théories qu’à d’autres ? Faisons un petit exercice qui vous amènera à prendre conscience que c’est le cas. Dans cet exercice, vous devez classer des théories selon que le niveau de croyance que vous leur accordez. Il n’y a pas de bonnes ou de mauvaises réponses, c’est quelque chose de personnel.</p>
+<iframe allowfullscreen frameborder="0" height="100%" mozallowfullscreen src="https://app.wooclap.com/LXGTRT/questionnaires/685eaf37ae92007a8fe73f23" style="min-height: 550px; min-width: 300px" width="100%">
+</iframe>
+<p>Á présent, revenons au tout début de la session. Je vous ai annoncé que je donnerais 50€<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;pour ceux et celles qui ne l’aurait pas compris, c’est juste un exercice de pensées pour vous amener à comprendre intuitivement l’approche bayésienne mais je ne peux en aucune manière donner 50€ à quiconque n’aurait pas changé de perspective vu que mon banquier m’a fait signer un document qui m’interdisait formellement de dépenser mon argent pendant que je travaillais&lt;/p&gt;"><sup>3</sup></a> aux personnes qui ne changeraient pas radicalement leur manière de mener leurs analyses et de mener leurs recherches. La contrepartie était de savoir combien vous seriez disposé à parier. Ainsi, si vous avez misé plus de 50€, disons 200€, cela signifie que vous êtes à peu prêt sûr·e que, peu importe ce que je vais dire dans la formation, vous ne changerez pas d’un iota. En revanche, si vous n’êtes prêt·e à miser qu’un euro, c’est que vous désirez profondément changer votre manière de faire des recherches et que vous m’accordez une confiance presque totale pour vous ouvrir la voie vers de nouvelles perspectives.</p>
+<p>On peut facilement estimer la probabilité que vous accordez à la théorie selon laquelle vous allez changer profondément votre manière de penser vos recherches grâce à ce pari.</p>
+<p>Si vous étiez prêt·e à miser 50€, cela signifie que vous accordez autant de chance au fait de pouvoir changer grâce à cette session qu’au fait de continuer à utiliser vos pratiques actuelles. Votre probabilité a priori est de 50%. Si vous étiez prêts à mettre 200 euros, c’est que vous croyez quatre fois plus dans le fait que l’hypothèse est fausse que dans le fait qu’elle soit vraie, ce qui nous donne <span class="math inline">\(\frac{200}{200+50}= 0.80\)</span>. Vous accordez 80% de chances à l’hypothèse que vous ne changerez pas votre manière de penser la science, donc 20% à l’hypothèse que vous allez être chamboulé·e après cette formation. Á l’inverse, si vous n’étiez disposé·e à muser qu’un euro, cela signifie que vous accordez une probabilité de <span class="math inline">\(\frac{1}{1+50}= 0.019\)</span> au fait que vous ne changerez pas vos pratiques. Vous êtes sûr·e à 98% que cette session va profondément modifier votre manière de penser vos recherches.</p>
+<p>Vous pouvez adopter ce raisonnement avec n’importe quelle théorie. Prenez le temps de réfléchir à votre dernière recherche, ou à la prochaine. Imaginez à présent que vous deviez décider de miser soit sur la pertinence de votre théorie (dans le sens où en récoltant des données, vous allez avoir des preuves qui vont venir la soutenir) soit sur un tirage au sort. Pour le tirage au sort, vous avez un sac avec deux billes : une noire et une rouge. Le pari est de tirer rouge<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;ou noir si vous préférez, cela n’a aucune importance.&lt;/p&gt;"><sup>4</sup></a>. Est-ce que vous placez votre pari sur votre théorie ou sur le tirage au sort ? Si vous le placez sur le tirage au sort, alors vous accordez un crédit inférieur à 0.5 à votre théorie. Si vous misez sur votre théorie, vous lui accordez un crédit supérieur à 0.5. On peut affiner : la répartition des billes dans le sac change : vous avez deux rouges pour une noire. Préférez-vous parier sur le fait de tirer rouge ou sur votre théorie ? Si vous préférez miser sur votre théorie, c’est que vous lui accordez une probabilité supérieure à 0.66 (<span class="math inline">\(\frac{2}{2+1}\)</span>). Vous pouvez continuer à ajuster votre probabilité avec n’importe quelle répartition de billes qu’il est nécessaire pour atteindre le niveau de précision souhaité.</p>
+<p>Appliquer ce genre de raisonnement permet d’éviter d’accorder une probabilité <em>a priori</em> déraisonnable à votre théorie, en affirmant par exemple que vous êtes sûr·e à 99.999% que les vaccins sont la cause du trouble du spectre autistique.<br>
+Vous pourriez encore vous dire que, si vous tester une théorie, c’est que vous lui accordez suffisamment de crédit pour qu’elle mérite que vous vous y intéressiez. En fait, les choses ne peuvent pas être aussi simples : certaines théories sont tellement évidentes que les tester ne sera qu’une perte de temps. Par exemple, quand je lève un bras, au bout d’un moment, j’ai mal. Il est probable que personne ne s’intéresse à cette théorie<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;formulé de cette manière. On pourrait en revanche être intéressé par la résistance à l’effort et savoir au bout de combien de temps la douleur devient insupportable.&lt;/p&gt;"><sup>5</sup></a>. Á l’inverse, certaines théories peuvent avoir de grandes application mais peuvent sembler peu crédible <em>a priori</em>. La théorie de la relativité d’Einstein n’a pas tout de suite eu le succès retentissant qu’elle a aujourd’hui <span class="citation">(pur une critique de cette théorie, voir par exemple <a href="references.html#ref-Poor1922">Poor, 1922</a>)</span>. Par exemple, si je vous demandais si la théorie sous-tendant l’homéopathie<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Pour rappel, la théorie principale sous-tendant l’homéopathie est la mémoire de l’eau&lt;/p&gt;"><sup>6</sup></a> mérite d’être d’être testée, où la placeriez-vous ?</p>
+<div class="inline-figure"><img src="bookdown-demo_files/figure-html/interetTheorie-1.png" width="672"></div>
+</div>
+<div id="construire-une-distribution-a-priori" class="section level2" number="7.2">
+<h2>
+<span class="header-section-number">7.2</span> Construire une distribution a priori<a class="anchor" aria-label="anchor" href="#construire-une-distribution-a-priori"><i class="fas fa-link"></i></a>
+</h2>
+<p>Arrivé à ce stade, vous avez une idée de ce que signifie la probabilité a priori d’une hypothèse et la manière dont on peut la formaliser. Cependant, ce n’est pas simple de comprendre comment on peut appliquer ce raisonnement pour arriver à mener des inférences.</p>
+<p>Un cas de figure particulièrement fréquent en psychologie est de comparer des moyennes. Comment est-il possible de passer d’une situation où on accorde une confiance à 80% à une théorie à une situation où c’est utile pour faire mon <em>t de Student</em> ?</p>
+<p>Une réponse précise à cette question est quelque peu technique et pourrait être rebutant. Nous allons donc aborder les choses de manière un peu plus accessible. Dans tous les cas, construire une distribution <em>a priori</em> est sans doute la partie la plus difficile dans l’utilisation de l’approche bayésienne. Dans cette section, l’objectif est d’expliquer la logique sous-tendant la contruction d’une distribution <em>a priori</em>. Dans la section suivante, nous évoquerons une manière beaucoup plus simple de le faire, mais l’exercice est utile pour comprendre ce que la logique sous-tendant la section suivante s’appuie directement de celle-ci.</p>
+<p>Concrètement, ce qu’on veut savoir, c’est dans quelle zone est que nous avons la plus forte probabilité que notre effet soit observé. Donc, tout comme dans l’approche fréquentiste où on va calculer la puissance statistique pour une taille d’effet que nous estimons raisonnablement pouvoir observer, la contruction d’une distribution <em>a priori</em> raisonnable requiert d’être expert du domaine dans lequel on veut mener l’étude. Si on ne se sent pas suffisamment expert, on peut regarder les effets qui sont habituellement observés dans le domaine qu’on veut investiguer en examinant par exemple des méta-analyses. On peut également se questionner sur la taille d’effet minimale qui vous amènerait à considérer que votre étude a du sens.</p>
+<p>Dans mon cas, je travaille sur l’apprentissage implicite en utilisant une tâche de temps de réaction sériel <span class="citation">(<a href="references.html#ref-Nissen1987">Nissen &amp; Bullemer, 1987</a>)</span>. Dans cette tâche, les participants doivent réagir le plus rapidement et le plus précisément possible à l’apparition d’un stimulus en fonction de sa localisation (voir Figure <a href="la-probabilit%C3%A9-a-priori.html#fig:SRT">7.1</a>). Á l’insu des participants, les stimuli n’apparaissent pas de manière aléatoire mais suivent une séquence. L’apprentissage se manifeste par des temps de réaction de plus en plus courts au fur et à mesure que la séquence est répétée et augmente drastiquement lorsqu’on expose les participants à une nouvelle séquence.</p>
+<div class="figure">
+<span style="display:block;" id="fig:SRT"></span>
+<img src="theorie/SRT.png" alt="Illustraton d'une tâche de temps de réaction sériel." width="425"><p class="caption">
+Figure 7.1: Illustraton d’une tâche de temps de réaction sériel.
+</p>
+</div>
+<p>La question qu’on se pose ici est de savoir si les participants ont appris la séquence<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;l’exercice est volontairement simpliste pour favoriser la compréhension plutôt que d’utiliser un exemple réaliste qui pourrait paraître abscons à une personne néophyte dans le domaine décrit.&lt;/p&gt;"><sup>7</sup></a>.</p>
+<p>Pour construire la distribution <em>a priori</em>, il est nécessaire d’avoir des connaissances sur cette tâche :</p>
+<ul>
+<li>pour répondre à un stimulus en fonction de sa localisation, des personnes jeunes prennent <strong>en moyenne</strong> environ 400-450 ms par stimulus.</li>
+<li>si on demande à des personnes de répondre le plus rapidement possible à un stimulus visuel (sans notion de localisation), on obtiendrait une moyenne située entre 200 et 250 ms.</li>
+<li>les temps de réaction manquent de fiabilité et ils sont donc associés à une variance assez importante.</li>
+<li>La tâche est longue et ennuyeuse et certaines personnes peuvent se lasser et/ou se déconcentrer.</li>
+</ul>
+<p>Une fois qu’e nous connaissons’on connait suffisamment le protocole et les variables que nous mesurons, on va devoir se questionner sur deux points :</p>
+<ol style="list-style-type: decimal">
+<li>quelle amélioration est-ce que je peux m’attendre à avoir sur les temps de réaction ;</li>
+<li>comment cette amélioration pourrait se répartir.</li>
+</ol>
+<p>Réfléchissons au premier point. Vu que des personnes ne peuvent pas répondre à des stimuli simples en moins de 200-250 ms, il ne semble pas raisonnable de penser que, en moyenne, les participants puissent avoir une amélioration de plus de 200 ms. Á l’inverse, si l’amélioration des temps de réaction était de l’ordre de 10 ms, on pourrait considérer que l’apprentissage ne semble pas contribuer de manière substantielle à la bonne réaliation de la tâche. Si on est moyennement optimiste sur notre procédure, un objectif raisonnable est de se dire qu’on obtiendra une amélioration d’environ 50 ms (ce qui représenterait une amélioration de 12,5% des temp de réaction <span class="math inline">\(\frac{400-350}{400}\)</span>). Si on est très optimiste, on peut imaginer une amélioration de 100 ms, donc un amélioratoin de 25% des temps de réaction. On peut choisir l’un ou l’autre, ou évntuellement couper la poire en deux et se mettre d’accord sur 75 ms. Dans la Figure Figure <a href="la-probabilit%C3%A9-a-priori.html#fig:priordstrib">7.2</a>, la ligne verticale rouge représente les temps à 400 ms pour le premier bloc et la verticale bleue représente l’amélioration de 75 ms.</p>
+<p>Á présent qu’on a une idée de l’amélioration des temps de réaction, il ne semble pas plausible que notre procédure va permettre d’obtenir une différence d’exactement 75 ms. On peut se questionner sur les limites entre lesquelles la différence pourrait varier. On sait que les temps de réaction varient entre 200 et 250 ms pour stimuli simples et entre 400-450 pour les premiers blocs de la tâche de temps de réaction sériel. On peut donc se dire que la variabilité sera au maximum de 50 ms.</p>
+<p>Nous allons à présent vérifier si cette hypothèse tient la route. Vu que la moyenne des temps de réaction de l’ensemble des participants ne peut raisonnablement pas être inférieure à 250 ms, il s’agit de l’amélioration maximale qu’on peut envisager. Nous l’identifierons par la ligne jaune sur la Figure <a href="la-probabilit%C3%A9-a-priori.html#fig:priordstrib">7.2</a>.<br>
+On sait que 95% des observations se situent entre -1.96 et +1.96 écart-types. Donc, si on estime que l’amélioration moyenne est 75 ms, et que cette amélioration peut se situer quelque part entre -2 et +2 écart-types autour de cette amélioration moyenne (hypothétique), cela signifie que les temps de réaction qu’on pourra observer après apprentissage seront situés entre 227 ms et 423 ms. Cet intervalle est représentée par la zone verte dans la Figure <a href="la-probabilit%C3%A9-a-priori.html#fig:priordstrib">7.2</a>.</p>
+<div class="figure">
+<span style="display:block;" id="fig:priordstrib"></span>
+<img src="bookdown-demo_files/figure-html/priordstrib-1.png" alt="Vérification de la plausibilité des hypothèses dans la contruction d'une ditribution a priori." width="672"><p class="caption">
+Figure 7.2: Vérification de la plausibilité des hypothèses dans la contruction d’une ditribution a priori.
+</p>
+</div>
+<p>Dans la Figure <a href="la-probabilit%C3%A9-a-priori.html#fig:priordstrib">7.2</a>, on observe que, au lieu d’améliorer les temps de réaction, les participants pourraient ralentir (la zone au delà de la barre verticale rouge). Cette supposition n’est pas complètement déraisonnable car la tâche est rébarbative. On peut estimer la probabilité d’observer ce phénomène avec la fonction <code>pnorm</code>.</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">z</span><span class="op">&lt;-</span><span class="op">(</span><span class="fl">400</span><span class="op">-</span><span class="fl">325</span><span class="op">)</span><span class="op">/</span><span class="fl">50</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span><span class="op">(</span><span class="va">z</span>, lower.tail<span class="op">=</span><span class="cn">F</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 0.0668072</code></pre>
+<p>On a 6.6% de chances de ne pas avoir d’apprentisagte du tout.</p>
+<p>On estimait également qu’il n’était pas raisonnable que les participants puissent répondre en moyenne en-dssous de 200-250 ms. En l’occurrence, la zone verte ne descend pas en-dessous de 200 ms, mais descend en-dessous de 250 ms. Avec les hypothèses que nous avons faites concernant les paramètres, cela signifie que cela surviendrait dans preque 7% des situations.</p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">z</span><span class="op">&lt;-</span><span class="op">(</span><span class="fl">250</span><span class="op">-</span><span class="fl">325</span><span class="op">)</span><span class="op">/</span><span class="fl">50</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span><span class="op">(</span><span class="va">z</span>, lower.tail<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 0.0668072</code></pre>
+<p>Ainsi, on ne l’exclut pas totalement mais on imagine que cela ne devrait pas arriver fréquemment. On doit à présent se demander si les hypothèses sont satisfaisantes ou s’il faut les ajuster. Peut-être qu’il est raisonnable de considérer qu’une absence d’apprentissage pourrait être plus fréquente que dans 7% des situations. On pourrait alors réduire l’effet d’apprentissage et revenir à l’hypothèse d’une amélioration des 50 ms, ou on pourrait augmenter l’écart-type. Dans le premier cas, cela rendrait moins probable d’avoir une amélioration qui amènerait les participants à répondre en moins de 250 ms en moyenne ; dans le second cas, cela rendrait également plus probable le fait d’avoir des temps moyens inférieurs à 250 ms. Donc, si on n’est pas totalement satisfait avec une amélioration moyenne de 75 ms, le changement qui semble le plus raisonnable est d’ajuster la moyenne. On peut évidemment ajuster la moyenne et l’écart-type.</p>
+<p>Il est indispensable de se rappeler de deux points :</p>
+<ul>
+<li>
+<strong>cette distribution <em>a priori</em> représente la manière dont les résultats moyens pourrait survenir et non les résultats individuels</strong>. Ce sont des hypothèses que vous faites sur les résultats qu’il est vraisemblable ou non d’obtenir.</li>
+<li><strong>Dans tous les cas, l’avis ultime correspondra à l’opinion personnelle du psychologue et dépendra entièrement de lui.</strong></li>
+</ul>
+</div>
+<div id="envisager-les-priors-comme-des-tailles-deffets." class="section level2" number="7.3">
+<h2>
+<span class="header-section-number">7.3</span> Envisager les priors comme des tailles d’effets.<a class="anchor" aria-label="anchor" href="#envisager-les-priors-comme-des-tailles-deffets."><i class="fas fa-link"></i></a>
+</h2>
+<p>Lorque nous passerons à la partie <a href="exercices.html#exercices">exercices</a>, nous verrons qu’on ne devra pas réaliser cet exercice de réflexion sur les données car nous utiliserons le package <em>BayesFactor</em> <span class="citation">(<a href="references.html#ref-Morey2024">Morey &amp; Rouder, 2024</a>)</span>. La logique qui sous-tend l’utilisation de ce package a été largement décrite dans des revues de psychologie <span class="citation">(<a href="references.html#ref-Morey2011">Morey &amp; Rouder, 2011</a>; <a href="references.html#ref-Rouder2009">Rouder et al., 2009</a>, <a href="references.html#ref-Rouder2012">2012</a>)</span> et s’appuie sur la conception de Jeffreys <span class="citation">(<a href="references.html#ref-jeffreys1961theory">1961</a>)</span> pour établir la distribution <em>a priori</em>.</p>
+<div style="background:      #ccebf9   ; font-size: 20px; padding: 10px; border: 1px solid lightgray; margin: 10px;">
+<p><legend style="background:  #8dcbe6    ;font-size: 30px; padding: 10px; border: 1px solid black;margin: 0 px"> <strong><a name="encart2"></a>Encart 3.</strong> Différence entre une distribution normale et une distribution Cauchy.</legend></p>
+<p>Pour des raisons techniques, la distribution qui est utilisée dans le package <em>BayesFactor</em> <span class="citation">(<a href="references.html#ref-Morey2024">Morey &amp; Rouder, 2024</a>)</span> est une distribution Cauchy.</p>
+<p>On va de suite relativiser l’importance de cette décision en comparant les deux courbes : excepté le fait que la distribution Cauchy est plus pointue que la distribution normale, les deux courbes se ressemblent. Ce n’est que sur les valeurs extrêmes où on va observer des petites différences entre les deux distributions (voir Figure <a href="la-probabilit%C3%A9-a-priori.html#fig:normalcauchy">7.3</a>)</p>
+<div class="figure">
+<span style="display:block;" id="fig:normalcauchy"></span>
+<img src="bookdown-demo_files/figure-html/normalcauchy-1.png" alt="Comparaison d'une distribution Cauchy avec une distribution normale." width="672"><p class="caption">
+Figure 7.3: Comparaison d’une distribution Cauchy avec une distribution normale.
+</p>
+</div>
+<p style="text-align:justify;">
+</p>
+</div>
+<p>Dans cette manière d’envisager l’approche bayésienne, l’objectif n’est plus de se demander quelle valeur exacte on va observer, mais plutôt <strong>quelles tailles d’effet sont plausibles</strong> avant d’avoir vu les données. Concrètement, si l’on répète un grand nombre de fois la même expérience en s’attendant à une petite taille d’effet (par exemple <span class="math inline">\(d_{\text{Cohen}} = 0.2\)</span>), on pourrait observer des tailles d’effet légèrement plus grandes (par exemple 0.5), ou plus petites (comme -0.1).</p>
+<p>La distribution des tailles d’effet <strong>sous l’hypothèse alternative</strong> est alors modélisée par une loi de Cauchy centrée en 0, qui reflète notre incertitude. Cette loi est large, mais il est irréaliste que la vraie taille d’effet soit aussi extrême que 6. À l’inverse, si l’on s’attend à une grande taille d’effet (disons <span class="math inline">\(d_{\text{Cohen}} = 1\)</span>), on pourrait observer des valeurs comme 1.5 ou 0.5, mais il devient alors moins probable d’observer une valeur proche de 0.</p>
+<p>Examinez maintenant la Figure <a href="la-probabilit%C3%A9-a-priori.html#fig:priorcauchy">7.4</a>. Prenons le cas où l’on s’attend à une taille d’effet relativement grande, disons <span class="math inline">\(d = 1\)</span>. Si le <code>rscale</code> vaut 0.2 ou 0.5, la a hauteur sous la courbe est faible autour de 1 ; en revanche, cette densité augmente pour des valeurs de <code>rscale</code> plus élevées comme 1 ou 1.41. Il est donc préférable, dans ce cas, d’utiliser un <code>rscale<code> de 1 ou 1.41, car cela reflète mieux nos attentes.</code></code></p>
+<p>Inversement, si l’on pense que la taille d’effet est petite (par exemple <span class="math inline">\(d = 0.2\)</span>), la hauteur de la distribution a priori est plus élevée autour de cette valeur lorsque le <code>rscale</code> est fixé à 0.5. Toutefois, si on choisit un <code>rscale</code> très faible, comme 0.2, la courbe devient très concentrée autour du zéro : on donne alors <strong>beaucoup plus de poids</strong> à l’absence d’effet qu’à la présence d’un petit effet — ce qui peut rendre difficile la détection de ce dernier.</p>
+<p>Ainsi, le choix du <code>rscale</code> revient à <strong>un compromis entre la hauteur du prior au point que l’on souhaite mettre en évidence (ex. d = 0.2 )) et la hauteur au niveau de l’absence d’effet (</strong><span class="math inline">\(d = 0\)</span>). Il s’agit de maximiser ce rapport, qui influence directement le Bayes factor.</p>
+<p>Rouder <span class="citation">(<a href="references.html#ref-Rouder2009">2009</a>)</span> propose des valeurs de référence pour le <code>rscale</code> en fonction de la taille d’effet attendue :</p>
+<ul>
+<li>petite taille d’effet : <code>rscale = 0.707</code>
+</li>
+<li>taille d’effet moyenne : <code>rscale = 1</code>
+</li>
+<li>grande taille d’effet :<code>rscale = 1.41</code>
+</li>
+</ul>
+<p>Ces valeurs sont intégrées directement dans le package <em>BayesFactor</em> <span class="citation">(<a href="references.html#ref-Morey2024">Morey &amp; Rouder, 2024</a>)</span>, comme nous le verrons plus loin.</p>
+<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## ℹ Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
+<div class="figure">
+<span style="display:block;" id="fig:priorcauchy"></span>
+<img src="bookdown-demo_files/figure-html/priorcauchy-1.png" alt="Priors sur une distribution Cauchy sur la taille d'effet standardisée (δ)" width="672"><p class="caption">
+Figure 7.4: Priors sur une distribution Cauchy sur la taille d’effet standardisée (δ)
+</p>
+</div>
+</div>
+<div id="quelques-remarques-supplémentaires" class="section level2" number="7.4">
+<h2>
+<span class="header-section-number">7.4</span> Quelques remarques supplémentaires<a class="anchor" aria-label="anchor" href="#quelques-remarques-suppl%C3%A9mentaires"><i class="fas fa-link"></i></a>
+</h2>
+<p>Bien que la possibilité de fixer votre distribution a priori ne doit plus avoir de secrets pour vous à présent, l’idée que les résultats de vos analyses puissent dépendre de vos opinions pourrait vous gêner.</p>
+<p>Il est vrai que, si on utilise pour la ditribution a priori une très grande variance, c’est-à-dire que l’incertitude concernant la taille d’effet est très grande, alors vous pouvez artificiellement modifier les résultats. D’après Rouder <span class="citation">(<a href="references.html#ref-Rouder2009">2009</a>)</span>, cela survient quand l’incertitude concernant la taille d’effet sont supérieures à <span class="math inline">\(\delta &gt; 6\)</span>. En choisissant une distribution aussi indéterminée, on privilégierait l’hypothèse nulle. Ceci s’explique par le fait que, avec une ditribution très large, la théorie qu’on souhaite tester est compatible avec une large gamme de résultats. Une théorie vague peut être compatible avec des données qui ont été obtenues, mais celles-ci la soutiennent peu si cette théorie peut s’accommoder de pratiquement n’importe quelles données. Ce phénomène s’appelle le paradoxe de Jeffreys–Lindley <span class="citation">(<a href="references.html#ref-Lindley1957">Lindley, 1957</a>)</span>. Comparez ici l’approche bayésienne avec l’approche fréquentiste. Dans l’approche fréquentiste, l’objectif est d’exclure une valeur : le 0. Dès lors que la probabilité de dépassement est inférieure à 0.05, le zéro est exclu et beaucoup en sont satisfaits, Á l’inverse, c’est le coeur de l’analyse bayésienne de punir celles et ceux dont les théories sont vagues <span class="citation">(<a href="references.html#ref-dienes2008understanding">Dienes, 2008</a>)</span>.</p>
+<p>Cependant, est-il vraiment raisonnable de penser qu’on puisse avoir des tailles d’effets supérieures à 6, voire même à 2 ? En vous entraînant à réaliser une distribution a priori avec vos hypothèses, non seulement vous prendrez conscience que ce n’est pas si difficile mais surtout cela vous amènera à réfléchir plus en profondeur à votre théorie et à faire des prédictions plus audacieuses. En ce sens, l’approche bayésienne rejoint l’esprit poppérien qui faisait l’apologie du risque <span class="citation">(<a href="references.html#ref-popper1959logic">K. R. Popper, 1959</a>)</span></p>
+<p>Le second point à avoir à l’esprit est que, si les données sont suffisantes, les données vont faire converger vers la même probabilité a posteriori, qu’importe la ditribution a priori choisie tant que les tailles d’effets envisagées sont raisonnables. L’objectif est seulement de savoir si vous avez une représentation précise de ce que vootre théorie permet de prédire <span class="citation">(<a href="references.html#ref-dienes2008understanding">Dienes, 2008</a>)</span>. Vous pouvez facilement savoir si vous avez recueilli assez de données en utilisant une approche robuste dans l’utilisation de l’inférence bayésienne, qui consiste à comparer les valeurs des facteurs de Bayes (nous verrons bientôt de quoi il s’agit) Évidemment, les fonction adaptées sont déjà implémentées dans R.</p>
+<p>Si cela ne vous suffit pas et que vous n’êtes toujours pas très à l’aise avec le fait de placer une probabilité sur votre hypothèse, il existe une autre alternative : placer une distribution a priori qui n’est pas informative. L’idée est de conidérer que vous n’avez aucune raison de préférer une hypothèse plutôt qu’une autre <span class="citation">(<a href="references.html#ref-alhujaj1997objective">Al-Hujaj &amp; Harney, 1997</a>; <a href="references.html#ref-berger2001objective">Berger &amp; Pericchi, 2001</a>)</span>. Dans ce cas, seule la vraisemblance des données déterminera votre probabilité a posteriori. Cette approche est ce qu’on appelle est les bayésiens objectifs <span class="citation">Al-Hujaj &amp; Harney (<a href="references.html#ref-alhujaj1997objective">1997</a>)</span>. Cette approche est finalement assez similaire à l’école de vraisemblance <span class="citation">(<a href="references.html#ref-royall1997statistical">Royall, 1997</a>)</span> qui, avec l’approche fréquentiste et l’inférence bayésienne, représente la troisième grande école d’inférences statistiques.</p>
+<p>Si fondamentalement, les tenants de l’appproche objective ne s’oppose pas à l’approche subjective, et conidèrent même qu’être capable de fixer une distribution a priori représente la situation idéale, il y a néanmoins deux raisons qui justifient de favoriser l’approche objective. La première est celle que nous évoquons insidieusement depuis le début de cette partie : quand on mène des analyses statistiques, il peut être nécessaire de donner une apparence d’objectivité. Cette raison n’est sans doute pas la plus importante dès lors qu’on est capable de justifier le choix de la distribution a priori. La seconde raison est pragmatique : lorsque les modèles deviennent complexes, la spécifications attentives des distribution a priori subjectives pour tous les paramètres du modèle peut devenir ardu<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;nous verrons néanmoins qu’il n’est pas nécessaire d’entrer autant dans les détails&lt;/p&gt;"><sup>8</sup></a>. Il semble plus raisonnable de sélectionner des modèles avec des valeurs par défaut et, dans un second temps, préciser les distributions <em>a priori</em> pour le modèle sélectionner <span class="citation">(<a href="references.html#ref-berger2001objective">Berger &amp; Pericchi, 2001</a>)</span>.</p>
+<p>Pour terminer sur les distributions a priori, de manière théorique, il est envisageable de modéliser un autre distribution qu’une distribution normale. Cependant, comme l’objectif est de présenter la manière d’utiliser le package <em>BayesFactor</em> <span class="citation">(<a href="references.html#ref-Morey2024">Morey &amp; Rouder, 2024</a>)</span>, et que les fonctions de packages ne requiert pas d’avoir plus qu’une idée de la taille d’effet que vous supposez pouvoir observer pour utiliser les fonctions de ce package, il ne semble ni opportun ni utile de présenter plus en détail ces cas de figures. Le lecteur intéressé pourra consulter Rossi <span class="citation">(<a href="references.html#ref-Rossi2005">2005</a>)</span> et Dienes <span class="citation">(<a href="references.html#ref-dienes2008understanding">Dienes, 2008</a>)</span>.</p>
+
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="les-probabilit%C3%A9s-objectif-ou-subjectif.html"><span class="header-section-number">6</span> Les probabilités : objectif ou subjectif</a></div>
+<div class="next"><a href="la-vraisemblance.html"><span class="header-section-number">8</span> La vraisemblance</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#la-probabilit%C3%A9-a-priori"><span class="header-section-number">7</span> La probabilité a priori</a></li>
+<li><a class="nav-link" href="#une-approche-intuitive"><span class="header-section-number">7.1</span> Une approche intuitive</a></li>
+<li><a class="nav-link" href="#construire-une-distribution-a-priori"><span class="header-section-number">7.2</span> Construire une distribution a priori</a></li>
+<li><a class="nav-link" href="#envisager-les-priors-comme-des-tailles-deffets."><span class="header-section-number">7.3</span> Envisager les priors comme des tailles d’effets.</a></li>
+<li><a class="nav-link" href="#quelques-remarques-suppl%C3%A9mentaires"><span class="header-section-number">7.4</span> Quelques remarques supplémentaires</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Initiation à l’approche bayésienne du traitement des données</strong>" was written by Nicolas Stefaniak. It was last built on 2025-07-03.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 8 La vraisemblance | Initiation à l’approche bayésienne du traitement des données</title>
+<meta name="author" content="Nicolas Stefaniak">
+<meta name="description" content="8.1 Une explication intuitive Vous venez de vous disputer avec une personne que vous savez être rancunière. Pourtant, le lendemain de votre dispute, cette personne vient sonner à votre porte, vous...">
+<meta name="generator" content="bookdown 0.43 with bs4_book()">
+<meta property="og:title" content="Chapter 8 La vraisemblance | Initiation à l’approche bayésienne du traitement des données">
+<meta property="og:type" content="book">
+<meta property="og:description" content="8.1 Une explication intuitive Vous venez de vous disputer avec une personne que vous savez être rancunière. Pourtant, le lendemain de votre dispute, cette personne vient sonner à votre porte, vous...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 8 La vraisemblance | Initiation à l’approche bayésienne du traitement des données">
+<meta name="twitter:description" content="8.1 Une explication intuitive Vous venez de vous disputer avec une personne que vous savez être rancunière. Pourtant, le lendemain de votre dispute, cette personne vient sonner à votre porte, vous...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+<script src="libs/tabwid-1.1.3/tabwid.js"></script><link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><script src="libs/plotly-binding-4.11.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script><link href="libs/panelset-0.3.0/panelset.css" rel="stylesheet">
+<script src="libs/panelset-0.3.0/panelset.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+          margin-bottom: 0em;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Initiation à l’approche bayésienne du traitement des données</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li><a class="" href="remerciements.html">Remerciements</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="le-th%C3%A9or%C3%A8me-de-bayes.html"><span class="header-section-number">2</span> Le théorème de Bayes</a></li>
+<li><a class="" href="accumuler-les-informations..html"><span class="header-section-number">3</span> Accumuler les informations.</a></li>
+<li><a class="" href="les-axiomes-des-probabilit%C3%A9s.html"><span class="header-section-number">4</span> Les axiomes des probabilités</a></li>
+<li><a class="" href="quelques-rappels-sur-lapproche-de-neyman-pearson.html"><span class="header-section-number">5</span> Quelques rappels sur l’approche de Neyman-Pearson</a></li>
+<li><a class="" href="les-probabilit%C3%A9s-objectif-ou-subjectif.html"><span class="header-section-number">6</span> Les probabilités : objectif ou subjectif</a></li>
+<li><a class="" href="la-probabilit%C3%A9-a-priori.html"><span class="header-section-number">7</span> La probabilité a priori</a></li>
+<li><a class="active" href="la-vraisemblance.html"><span class="header-section-number">8</span> La vraisemblance</a></li>
+<li><a class="" href="la-probabilit%C3%A9-a-posteriori.html"><span class="header-section-number">9</span> La probabilité a posteriori</a></li>
+<li><a class="" href="le-facteur-de-bayes.html"><span class="header-section-number">10</span> Le facteur de Bayes</a></li>
+<li><a class="" href="comparaison-avec-lapproche-fr%C3%A9quentiste.html"><span class="header-section-number">11</span> Comparaison avec l’approche fréquentiste</a></li>
+<li><a class="" href="exercices.html"><span class="header-section-number">12</span> Exercices</a></li>
+<li><a class="" href="conclusions.html"><span class="header-section-number">13</span> Conclusions</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="la-vraisemblance" class="section level1" number="8">
+<h1>
+<span class="header-section-number">8</span> La vraisemblance<a class="anchor" aria-label="anchor" href="#la-vraisemblance"><i class="fas fa-link"></i></a>
+</h1>
+<div id="une-explication-intuitive" class="section level2" number="8.1">
+<h2>
+<span class="header-section-number">8.1</span> Une explication intuitive<a class="anchor" aria-label="anchor" href="#une-explication-intuitive"><i class="fas fa-link"></i></a>
+</h2>
+<p>Vous venez de vous disputer avec une personne que vous savez être
+rancunière. Pourtant, le lendemain de votre dispute, cette personne
+vient sonner à votre porte, vous prie de l’excuser de son comportement
+de la veille et souhaite se faire pardonner en vous offrant un cadeau.</p>
+<p>Après avoir accepté le présent, vous vous rendez compte que quelque
+chose bouge à l’intérieur. Dans un premier temps, vous vous dites que
+c’est sans doute un mignon petit chaton. Cependant, après quelques
+instants de réflexion, vous vous rappelez que la personne avec laquelle
+vous vous êtes disputée est rancunière et vous vous demandez s’il ne
+s’agirait pas plutôt d’un diable de Tasmanie et que la personne vous a
+fait ce présent pour se débarasser définitivement de vous. Vous vous
+dites que vous allez introduire un morceau de viande à l’intérieur de la
+boîte parce que vous savez que vous avez 90% de chances que le morceau
+soit dévoré s’il s’agit d’un diable de Tasmanie. Vous n’oubliez tout de
+même pas que les chats ont carnivores et qu’il y a 10% de chances qu’un
+petit chaton arrive à manger le morceau de viande que vous avez
+introduit.</p>
+<div class="inline-figure"><img src="Vraisemblance/chaton.png" width="454"></div>
+<p>Après avoir introduit le morceau de viande, vous attendez un instant,
+vous tirez sur la corde à laquelle le morceau était solidement attaché,
+plus rien. Est-ce que c’est un diable ou un chaton ?</p>
+</div>
+<div id="définition" class="section level2" number="8.2">
+<h2>
+<span class="header-section-number">8.2</span> Définition<a class="anchor" aria-label="anchor" href="#d%C3%A9finition"><i class="fas fa-link"></i></a>
+</h2>
+<p>La vraisemblance est la probabilité d’observer les données pour une
+hypothèse donnée. La seconde partie de la phrase est particulièrement
+importante. La probabilité d’observer des données dépend de l’hypothèse
+qu’on est en train d’examiner.</p>
+<pre><code>##  [1] 45 20 15 30 29 29 32 46 35 27 28 16 34 24 56 30 40 19 13 46</code></pre>
+<p>Prenons les données présentées ci-dessus. Sans faire de calcul,
+demandez-vous quelle pourrait être la moyenne et quel pourrait être
+l’écart-type. Vous faites une hypothèse concernant cette moyenne et cet
+écart-type, hypothèse qui pourra être plus moins proche de la réalité.
+Si vous êtes très proche de la réalité, la probabilité d’observer les
+données sera élevée, si vous l’êtes moins, cette probabilité va
+diminuer.</p>
+<div style="background:      #d5ffc0  ; font-size: 20px; padding: 10px; border: 1px solid lightgray; margin: 0px;">
+<p><legend style="background:  #6bc666    ;font-size: 28px; padding: 10px; border: 1px solid black;margin: 0 px">
+<strong>Astuce</strong> </legend></p>
+<p style="text-align:justify;">
+</p>
+<p>Pour vous aider dans vos estimations, la valeur la plus petite est
+13 et la plus grande est 56, sachant que 95%
+des données se situent entre -2 et +2 écart-types, cela devrait vous
+aider à estimer l’écart-type.</p>
+
+</div>
+<p>Nou reviendrons au calcul précis de la vraisemblance pour ces données un
+peu plus loin mais commençons à expliquer le calcul de la vraisemblance
+par un exemple simple.</p>
+</div>
+<div id="un-exemple-simple" class="section level2" number="8.3">
+<h2>
+<span class="header-section-number">8.3</span> Un exemple simple<a class="anchor" aria-label="anchor" href="#un-exemple-simple"><i class="fas fa-link"></i></a>
+</h2>
+<p>Vous jouez aux dés et vous faites l’hypothèse que le dé est équilibré.
+Vous lancez le dé 20 fois, vous obtenez 10 fois le 6, et 2 fois chacune
+des autres valeurs. On peut obtenir la vraisemblance d’avoir 10 fois la
+valeur 6 en 20 essais en utilisant la binomiale. Dans R, on l’obtient
+facilement avec la fonction <code>binom.test</code>.</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/binom.test.html">binom.test</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">10</span>, <span class="co"># nombre de succès, càd. avoir 6</span></span>
+<span>           n <span class="op">=</span> <span class="fl">20</span>, <span class="co"># nombre d'essais </span></span>
+<span>           p <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">6</span><span class="op">)</span> <span class="co"># la probabilité d'avoir 6 si le dé n'est pas pipé</span></span></code></pre></div>
+<pre><code>## 
+##  Exact binomial test
+## 
+## data:  10 and 20
+## number of successes = 10, number of trials = 20, p-value = 0.0005985
+## alternative hypothesis: true probability of success is not equal to 0.1666667
+## 95 percent confidence interval:
+##  0.2719578 0.7280422
+## sample estimates:
+## probability of success 
+##                    0.5</code></pre>
+<p>La probabilité d’observer exactement 10 fois 6 sur les 20 lancers
+vraisemblance d’observer 0.000599. Cette probabilité est
+assez faible.</p>
+<p>Vous pouvez faire une nouvelle hypothèse à présent : le dé est un
+peut-être pipé de sorte à ce qu’il tombe 2 fois plus souvent sur le 6
+que sur les autres nombres. Notre nouvelle probabilité du succès est de
+2/7 pour le 6, et 1/7 pour toutes les autres faces (1/7 pour le 1, 1/7
+pour 2, 1/7 pour le 3, 1/7 pour le 4, et 1/7 pour le 5). Ainsi, le
+chiffres 6 a deux fois plus de chances d’être observé que n’importe
+quelle autre face.</p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/binom.test.html">binom.test</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">10</span>, <span class="co"># nombre de succès, càd. avoir 6</span></span>
+<span>           n <span class="op">=</span> <span class="fl">20</span>, <span class="co"># nombre d'essais </span></span>
+<span>           p <span class="op">=</span> <span class="fl">2</span><span class="op">/</span><span class="fl">7</span><span class="op">)</span> <span class="co"># la probabilité d'avoir 6 pour un dé est pipé</span></span></code></pre></div>
+<pre><code>## 
+##  Exact binomial test
+## 
+## data:  10 and 20
+## number of successes = 10, number of trials = 20, p-value = 0.04563
+## alternative hypothesis: true probability of success is not equal to 0.2857143
+## 95 percent confidence interval:
+##  0.2719578 0.7280422
+## sample estimates:
+## probability of success 
+##                    0.5</code></pre>
+<p>Dans ce cas, la vraisemblance que les chances d’avoir 6 vaut
+0.045626. Cette vraisemblance est
+76.1702838 plus élevée que la
+vraisemblance d’un dé non pipé. Le dé est sans doute pipé. Remarquez
+qu’ici, j’aurais pu utiliser “le dé est vraisemblablement pipé” mais
+j’ai évité cette formulation pour éviter l’ambiguïté entre le mot
+“vraisemblable”</p>
+<div style="background:      #ccebf9   ; font-size: 20px; padding: 10px; border: 1px solid lightgray; margin: 10px;">
+<p><legend style="background:  #8dcbe6    ;font-size: 30px; padding: 10px; border: 1px solid black;margin: 0 px">
+<strong><a name="encart4"></a>Encart 4.</strong> Á propos de
+l’estimation par maximum de vraisemblance.</legend></p>
+<p>Pour quiconque ayant déjà réalisé une analye factorielle, une
+modélisation d’équation structurale ou encore un modèle linéaire (mixte)
+généralisé, le mot vraisemblance ne doit pas être étranger car un des
+algorithmes les plus utilisés dans ces contextes est l’estimation du
+maximum de vraisemblance.</p>
+<p>L’estimation du maximum de vraisemblance consiste à estimer la
+vraisemblance pour différentes hypothèses et d’identifier l’hypothèse
+pour laquelle la probabilité est la plus élevée permettra d’avoir une
+estimation des paramètres d’intérêt.</p>
+<p>Sans vouloir rentrer dans la rigueur mathématique pour estimer un
+maximum de vraisemblance, voici schématiquement ce qu’un algorithme
+d’estimation du maximum de vraisemblance réaliserait pour estimer la
+probabilité du succès pour le dé de notre exemple.</p>
+<div class="tabwid">
+<style>.cl-9eb094d2{}.cl-9ea4114e{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-9ea8a268{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-9ea8c6e4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9ea8c70c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9ea8c70d{width:0.75in;background-color:rgba(14, 146, 92, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9ea8c716{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<div class="inline-table"><table data-quarto-disable-processing="true" class="cl-9eb094d2">
+<caption style="display:table-caption;margin:0pt;text-align:center;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;">
+<span id="tab:MLE">Table 8.1: </span><span>Vraisemblance estimée pour différentes hypothèses de probabilité d'obtenir 6.</span>
+</caption>
+<thead><tr style="overflow-wrap:break-word;">
+<th class="cl-9ea8c6e4"><p class="cl-9ea8a268"><span class="cl-9ea4114e">p.succès</span></p></th>
+<th class="cl-9ea8c6e4"><p class="cl-9ea8a268"><span class="cl-9ea4114e">vraisemblance</span></p></th>
+</tr></thead>
+<tbody>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.05</span></p></td>
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.00000001134072</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.10</span></p></td>
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.00000715090402</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.15</span></p></td>
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.00024838198962</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.20</span></p></td>
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.00259482740067</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.25</span></p></td>
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.01703562888270</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.30</span></p></td>
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.08344502962981</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.35</span></p></td>
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.16615618982385</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.40</span></p></td>
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.37026176940664</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.45</span></p></td>
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.66064467810194</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-9ea8c70d"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.50</span></p></td>
+<td class="cl-9ea8c70d"><p class="cl-9ea8a268"><span class="cl-9ea4114e">1.00000000000000</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.55</span></p></td>
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.66064467810194</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.60</span></p></td>
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.37026176940664</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.65</span></p></td>
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.16615618982385</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.70</span></p></td>
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.08344502962981</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.75</span></p></td>
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.01703562888270</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.80</span></p></td>
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.00259482740067</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.85</span></p></td>
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.00024838198962</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.90</span></p></td>
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.00000715090402</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.95</span></p></td>
+<td class="cl-9ea8c70c"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.00000001134072</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-9ea8c716"><p class="cl-9ea8a268"><span class="cl-9ea4114e">1.00</span></p></td>
+<td class="cl-9ea8c716"><p class="cl-9ea8a268"><span class="cl-9ea4114e">0.00000000000000</span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Sans grande surprise, la vraisemblance est maximale dans notre exemple
+lorsque la probabilité d’obtenir 6 est de 0.5. Néanmoins, quand il faut
+pouvoir estimer plusieurs paramètres simultanément, les choses sont
+moins triviales que cela.</p>
+<p style="text-align:justify;">
+</p>
+</div>
+</div>
+<div id="vraisemblance-et-variable-quantitative" class="section level2" number="8.4">
+<h2>
+<span class="header-section-number">8.4</span> Vraisemblance et variable quantitative<a class="anchor" aria-label="anchor" href="#vraisemblance-et-variable-quantitative"><i class="fas fa-link"></i></a>
+</h2>
+<p>Si dans le cas précédent, le calcul de la vraisemblance est assez
+simple, les choses se compliquent lorsqu’on est confronté à une variable
+quantiative.</p>
+<p>Pour comprendre le calcul de la vraisemblance, il est nécessaire de
+comprendre une notion supplémentaire : la densité de probabilité.</p>
+<p>La densité de probabilité est la hauteur sous la courbe dans une
+distribution. Pour une distribution normale, on peut l’obtenir avec la
+fonction <code>dnorm</code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;il existe des fonctions R pour obtenir la densité de
+probabilité pour n’importe quelle distribution mais ce n’est pas
+l’objet de l’explication ici&lt;/p&gt;"><sup>9</sup></a>. Concrètement, j’ai des
+données dont la moyenne est de 100, l’écart-type vaut 15, la hauteur
+sous la courbe pour la valeur 112 est obtenue ainsi :</p>
+<pre><code>## [1] 0.01931277</code></pre>
+<p>Il est important de comprendre que, pour une variable continue, aucun
+score, aucune valeur n’a une denité de probabilité différente de 0. La
+densité est calculée pour un intervalle. Il n’est pas nécessaire de
+préciser cet intervalle, R va l’inférer en fonction de la valeur qu’on
+rentre.</p>
+<div class="figure">
+<span style="display:block;" id="fig:Vraisplot"></span>
+<img src="bookdown-demo_files/figure-html/Vraisplot-1.png" alt="Représentation graphique du maximum de vraisemblance pour 1 observervation située à 112 dans une distibution dont la moyenne est supposée être à 100 et l'écart-type à 15." width="672"><p class="caption">
+Figure 8.1: Représentation graphique du maximum de vraisemblance pour 1 observervation située à 112 dans une distibution dont la moyenne est supposée être à 100 et l’écart-type à 15.
+</p>
+</div>
+<p>Nous avions déjà évoqué dans la section consacrée à l’estimation de la
+<a href="la-probabilit%C3%A9-a-priori.html#une-approche-intuitive">distribution a priori</a> de la hauteur sous la
+courbe. Il s’agissait déjà de la densité de probabilité. Nous n’avions
+pas évoqué le concept à ce moment-là pour focaliser sur la compréhension
+du prior plutôt que sur la notion probabiliste.</p>
+<p>La vraisemblance pour des données quantitatives va être la probabilité
+conditionnelle d’avoir conjointement les densités de probabilité pour
+une hypothèse donnée. Nous avons vu dans les rappels sur les
+<a href="#les-axiomes-des-probabilit%C3%A9s">probabilités</a> qu’une probabilité
+conjointe était le produit entre différentes probabilités lorsque
+certains éléments sont imposés. C’est la probabilité des données étant
+donné une hypothèse.</p>
+<p>Revenons à notre exemple sur le QI. Imaginons que nous mesurions le QI
+des personnes qui suivent cette formation. Voici les données que
+j’obtiens</p>
+<pre><code>##  [1] 143 127 125 126 127 116 108 119 126 117 125 109 110 129 126 116 127</code></pre>
+<p>On peut obtenir la densité de probabilité pour ces valeurs pour
+l’hypothèse d’une moyenne à 100 et d’un écart-type à 15, c’est-à-dire
+l’hyopthèse selon laquelle votre QI ne dépasse celui de la moyenne de la
+population.</p>
+<pre><code>##  [1] 0.0004368688 0.0052633439 0.0066318093 0.0059212307 0.0052633439
+##  [6] 0.0150575218 0.0230702595 0.0119238944 0.0059212307 0.0139928197
+## [11] 0.0066318093 0.0222149735 0.0212965337 0.0041036534 0.0059212307
+## [16] 0.0150575218 0.0052633439</code></pre>
+<p>Le produit de toutes ces densités nous fournit la vraisemblance :</p>
+<pre><code>## [1] 0.0000000000000000000000000000000000009854725</code></pre>
+<p>De manière générale, plus il y a des valeurs, plus le produit des
+densités va se rapprocher de 0<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;dans une distribution normale, la densité ne peut pas
+dépasser 1 et mutiplier des valeurs entre 0 et 1 entre elles
+rapproche de 0. Par exemple &lt;span class="math inline"&gt;\(0.1 \times 0.1 = 0.01\)&lt;/span&gt;&lt;/p&gt;'><sup>10</sup></a>.Néanmoins, dans ce cas,
+la vraisemblance semble particulièrement faible. On pouvait s’y
+attendre. Si on représente graphiquement les densité de ces
+observations, la plupart des observations sont sur les extrémités et peu
+sont situées au centre.</p>
+<pre><code>##  [1] 143 127 125 126 127 116 108 119 126 117 125 109 110 129 126 116 127</code></pre>
+<div class="figure">
+<span style="display:block;" id="fig:QIplot100"></span>
+<img src="bookdown-demo_files/figure-html/QIplot100-1.png" alt="Représentation graphique densité pour l'ensemble des valeurs de QI" width="672"><p class="caption">
+Figure 8.2: Représentation graphique densité pour l’ensemble des valeurs de QI
+</p>
+</div>
+<p>On peut refaire la même figure mais en utilisant cette fois la moyenne
+et l’écart-type observé pour les valeurs de QI (voir Figure
+<a href="la-vraisemblance.html#fig:QIplot122">8.3</a>). On constate sur la Figure que la hauteur pour
+chaque observation est bien plus élevée que ce qu’on observait dans la
+Figure <a href="la-vraisemblance.html#fig:QIplot100">8.2</a>). Les données nous disent qu’une moyenne à
+122 est bien plus probable qu’une moyenne à 100.</p>
+<pre><code>##  [1] 143 127 125 126 127 116 108 119 126 117 125 109 110 129 126 116 127</code></pre>
+<div class="figure">
+<span style="display:block;" id="fig:QIplot122"></span>
+<img src="bookdown-demo_files/figure-html/QIplot122-1.png" alt="Représentation graphique densité pour l'ensemble des valeurs de QI lorsque la moyenne et l'écart-type correspondent à la moyenne et l'écart-type des valeurs de QI." width="672"><p class="caption">
+Figure 8.3: Représentation graphique densité pour l’ensemble des valeurs de QI lorsque la moyenne et l’écart-type correspondent à la moyenne et l’écart-type des valeurs de QI.
+</p>
+</div>
+<p>On peut comparer la vraisemblance qu’on obtient quand on utilise la
+bonne moyenne et le bon écart-type. La valeur qu’on obtient est bien
+plus élevée que celle qu’on obtenait avec une moyenne à 100 et un
+écart-type à 15. Vous pouvez comparer la vraisemblance qu’on a obtenue
+avec celle qu’on obtient en utilisant la fonction <code>logLik</code>.</p>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Vraisemblance avec l'hypothèse d'un QI égal à la moyenne du QI </span></span>
+<span><span class="co"># et un écart-type égal à la moyenne de l'écart-type</span></span>
+<span><span class="va">densite</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">QI</span>,<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">QI</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">QI</span><span class="op">)</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="va">densite</span></span></code></pre></div>
+<pre><code>##  [1] 0.002748363 0.038794592 0.042862914 0.041040758 0.038794592 0.035552856
+##  [7] 0.012571736 0.042476075 0.041040758 0.038212811 0.042862914 0.014974513
+## [13] 0.017608902 0.033354098 0.041040758 0.035552856 0.038794592</code></pre>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">vraisemblance122</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/prod.html">prod</a></span><span class="op">(</span><span class="va">densite</span><span class="op">)</span></span>
+<span><span class="va">vraisemblance122</span></span></code></pre></div>
+<pre><code>## [1] 0.000000000000000000000000004623054</code></pre>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Comparaison avec la vraisemblance obtenue par la fonction logLik</span></span>
+<span><span class="va">lmx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">QI</span> <span class="op">~</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># on modélise uniquement l'intercept</span></span>
+<span><span class="va">logML</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/stats/logLik.html">logLik</a></span><span class="op">(</span><span class="va">lmx</span><span class="op">)</span> <span class="co"># on obtient le logarithme (log Likelihood) de la vraisemblance </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">logML</span><span class="op">)</span><span class="op">)</span> <span class="co"># en faisant l'exponentiel, on obtient la même valeur que celle que nous avons calculée. </span></span></code></pre></div>
+<pre><code>## [1] 0.000000000000000000000000004694374</code></pre>
+<p>Avant de passer à la section suivante, il est important de préciser que
+la vraisemblance atteint son maximum dans notre exemple parce que les
+données étaient issue d’une distribution normale et qu’il n’y avait pas
+de valeur influente. Quand la distribution supposée n’est pas correcte,
+ou qu’il y a des valeurs influentes, la valeur pour laquelle la
+vraisemblance est maximale peut être différente de la moyenne et de
+l’écart-type obtenu de manière arithmétique arithmétique.</p>
+</div>
+<div id="exercice" class="section level2" number="8.5">
+<h2>
+<span class="header-section-number">8.5</span> Exercice<a class="anchor" aria-label="anchor" href="#exercice"><i class="fas fa-link"></i></a>
+</h2>
+<div id="énoncé" class="section level3" number="8.5.1">
+<h3>
+<span class="header-section-number">8.5.1</span> Énoncé<a class="anchor" aria-label="anchor" href="#%C3%A9nonc%C3%A9"><i class="fas fa-link"></i></a>
+</h3>
+<p>Calculez la vraisemblance avec des données qui vous ont été présentées dans la partie <a href="#d%C3%A9finition">définition</a> avec la moyenne et l’écart-type que vous aviez imaginé. Comparez la différence de vraiselblance avec la moyenne et l’écart-type calculé. Pour vous aider, vous pouvez recréer le vecteur en utilisant cette ligne de commande</p>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Exo1</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">45</span>, <span class="fl">20</span>, <span class="fl">15</span>, <span class="fl">30</span>, <span class="fl">29</span>, <span class="fl">29</span>, <span class="fl">32</span>, <span class="fl">46</span>, <span class="fl">35</span>, <span class="fl">27</span>, <span class="fl">28</span>, <span class="fl">16</span>, <span class="fl">34</span>, <span class="fl">24</span>, <span class="fl">56</span>, </span>
+<span><span class="fl">30</span>, <span class="fl">40</span>, <span class="fl">19</span>, <span class="fl">13</span>, <span class="fl">46</span><span class="op">)</span></span></code></pre></div>
+<details><summary>
+Cliquez pour la solution
+</summary><div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">m</span><span class="op">&lt;-</span><span class="fl">35</span> <span class="co"># ma moyenne</span></span>
+<span><span class="va">s</span><span class="op">&lt;-</span><span class="fl">10</span> <span class="co"># mon écart-type</span></span>
+<span><span class="va">densite</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">Exo1</span>,<span class="va">m</span>,<span class="va">s</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">vrais</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/prod.html">prod</a></span><span class="op">(</span><span class="va">densite</span><span class="op">)</span></span>
+<span><span class="va">vrais</span></span></code></pre></div>
+<pre><code>## [1] 0.00000000000000000000000000000000005259341</code></pre>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># La même chose avec la vraie moyenne</span></span>
+<span><span class="va">m</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Exo1</span><span class="op">)</span> <span class="co"># moyenne exo1</span></span>
+<span><span class="va">s</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">Exo1</span><span class="op">)</span> <span class="co"># écart-type exo1</span></span>
+<span><span class="va">densite</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">Exo1</span>,<span class="va">m</span>,<span class="va">s</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">vrais2</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/prod.html">prod</a></span><span class="op">(</span><span class="va">densite</span><span class="op">)</span></span>
+<span><span class="va">vrais2</span></span></code></pre></div>
+<pre><code>## [1] 0.000000000000000000000000000000000445032</code></pre>
+</details>
+</div>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="la-probabilit%C3%A9-a-priori.html"><span class="header-section-number">7</span> La probabilité a priori</a></div>
+<div class="next"><a href="la-probabilit%C3%A9-a-posteriori.html"><span class="header-section-number">9</span> La probabilité a posteriori</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#la-vraisemblance"><span class="header-section-number">8</span> La vraisemblance</a></li>
+<li><a class="nav-link" href="#une-explication-intuitive"><span class="header-section-number">8.1</span> Une explication intuitive</a></li>
+<li><a class="nav-link" href="#d%C3%A9finition"><span class="header-section-number">8.2</span> Définition</a></li>
+<li><a class="nav-link" href="#un-exemple-simple"><span class="header-section-number">8.3</span> Un exemple simple</a></li>
+<li><a class="nav-link" href="#vraisemblance-et-variable-quantitative"><span class="header-section-number">8.4</span> Vraisemblance et variable quantitative</a></li>
+<li>
+<a class="nav-link" href="#exercice"><span class="header-section-number">8.5</span> Exercice</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#%C3%A9nonc%C3%A9"><span class="header-section-number">8.5.1</span> Énoncé</a></li></ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Initiation à l’approche bayésienne du traitement des données</strong>" was written by Nicolas Stefaniak. It was last built on 2025-07-03.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
