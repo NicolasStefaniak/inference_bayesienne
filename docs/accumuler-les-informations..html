@@ -4,15 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 3 Accumuler les informations. | Initiation à l’approche bayésienne du traitement des données</title>
+<title>Chapter 4 Accumuler les informations. | Initiation à l’approche bayésienne du traitement des données</title>
 <meta name="author" content="Nicolas Stefaniak">
 <meta name="description" content="On peut comprendre assez intuitivement que les probabilités changent quand on accumule des informations au travers d’un exemple simple : vous partez en vacance et pour vos vacances, vous avez loué...">
 <meta name="generator" content="bookdown 0.43 with bs4_book()">
-<meta property="og:title" content="Chapter 3 Accumuler les informations. | Initiation à l’approche bayésienne du traitement des données">
+<meta property="og:title" content="Chapter 4 Accumuler les informations. | Initiation à l’approche bayésienne du traitement des données">
 <meta property="og:type" content="book">
 <meta property="og:description" content="On peut comprendre assez intuitivement que les probabilités changent quand on accumule des informations au travers d’un exemple simple : vous partez en vacance et pour vos vacances, vous avez loué...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 3 Accumuler les informations. | Initiation à l’approche bayésienne du traitement des données">
+<meta name="twitter:title" content="Chapter 4 Accumuler les informations. | Initiation à l’approche bayésienne du traitement des données">
 <meta name="twitter:description" content="On peut comprendre assez intuitivement que les probabilités changent quand on accumule des informations au travers d’un exemple simple : vous partez en vacance et pour vos vacances, vous avez loué...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -72,19 +72,20 @@
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html"></a></li>
 <li><a class="" href="remerciements.html">Remerciements</a></li>
-<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
-<li><a class="" href="le-th%C3%A9or%C3%A8me-de-bayes.html"><span class="header-section-number">2</span> Le théorème de Bayes</a></li>
-<li><a class="active" href="accumuler-les-informations..html"><span class="header-section-number">3</span> Accumuler les informations.</a></li>
-<li><a class="" href="les-axiomes-des-probabilit%C3%A9s.html"><span class="header-section-number">4</span> Les axiomes des probabilités</a></li>
-<li><a class="" href="quelques-rappels-sur-lapproche-de-neyman-pearson.html"><span class="header-section-number">5</span> Quelques rappels sur l’approche de Neyman-Pearson</a></li>
-<li><a class="" href="les-probabilit%C3%A9s-objectif-ou-subjectif.html"><span class="header-section-number">6</span> Les probabilités : objectif ou subjectif</a></li>
-<li><a class="" href="la-probabilit%C3%A9-a-priori.html"><span class="header-section-number">7</span> La probabilité a priori</a></li>
-<li><a class="" href="la-vraisemblance.html"><span class="header-section-number">8</span> La vraisemblance</a></li>
-<li><a class="" href="la-probabilit%C3%A9-a-posteriori.html"><span class="header-section-number">9</span> La probabilité a posteriori</a></li>
-<li><a class="" href="le-facteur-de-bayes.html"><span class="header-section-number">10</span> Le facteur de Bayes</a></li>
-<li><a class="" href="comparaison-avec-lapproche-fr%C3%A9quentiste.html"><span class="header-section-number">11</span> Comparaison avec l’approche fréquentiste</a></li>
-<li><a class="" href="exercices.html"><span class="header-section-number">12</span> Exercices</a></li>
-<li><a class="" href="conclusions.html"><span class="header-section-number">13</span> Conclusions</a></li>
+<li><a class="" href="%C3%A1-propos-de-cet-ouvrage..html"><span class="header-section-number">1</span> Á propos de cet ouvrage.</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">2</span> Introduction</a></li>
+<li><a class="" href="le-th%C3%A9or%C3%A8me-de-bayes.html"><span class="header-section-number">3</span> Le théorème de Bayes</a></li>
+<li><a class="active" href="accumuler-les-informations..html"><span class="header-section-number">4</span> Accumuler les informations.</a></li>
+<li><a class="" href="les-axiomes-des-probabilit%C3%A9s.html"><span class="header-section-number">5</span> Les axiomes des probabilités</a></li>
+<li><a class="" href="quelques-rappels-sur-lapproche-de-neyman-pearson.html"><span class="header-section-number">6</span> Quelques rappels sur l’approche de Neyman-Pearson</a></li>
+<li><a class="" href="les-probabilit%C3%A9s-objectif-ou-subjectif.html"><span class="header-section-number">7</span> Les probabilités : objectif ou subjectif</a></li>
+<li><a class="" href="la-probabilit%C3%A9-a-priori.html"><span class="header-section-number">8</span> La probabilité a priori</a></li>
+<li><a class="" href="la-vraisemblance.html"><span class="header-section-number">9</span> La vraisemblance</a></li>
+<li><a class="" href="la-probabilit%C3%A9-a-posteriori.html"><span class="header-section-number">10</span> La probabilité a posteriori</a></li>
+<li><a class="" href="le-facteur-de-bayes.html"><span class="header-section-number">11</span> Le facteur de Bayes</a></li>
+<li><a class="" href="comparaison-avec-lapproche-fr%C3%A9quentiste.html"><span class="header-section-number">12</span> Comparaison avec l’approche fréquentiste</a></li>
+<li><a class="" href="exercices.html"><span class="header-section-number">13</span> Exercices</a></li>
+<li><a class="" href="conclusions.html"><span class="header-section-number">14</span> Conclusions</a></li>
 <li><a class="" href="references.html">References</a></li>
 </ul>
 
@@ -93,9 +94,9 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="accumuler-les-informations." class="section level1" number="3">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="accumuler-les-informations." class="section level1" number="4">
 <h1>
-<span class="header-section-number">3</span> Accumuler les informations.<a class="anchor" aria-label="anchor" href="#accumuler-les-informations."><i class="fas fa-link"></i></a>
+<span class="header-section-number">4</span> Accumuler les informations.<a class="anchor" aria-label="anchor" href="#accumuler-les-informations."><i class="fas fa-link"></i></a>
 </h1>
 <p>On peut comprendre assez intuitivement que les probabilités changent quand on accumule des informations au travers d’un exemple simple : vous partez en vacance et pour vos vacances, vous avez loué une superbe villa avec piscine dans un endroit paradisiaque (qui se trouve évidemment en France puisque vous êtes éco-responsable). Vous arrivez vers 19.30 dans le logement et après avoir fait le tour du propriétaire, vous ouvrez le frigo. Á l’intérieur, une boite hermétique avec de la nourriture dedans. Vous avez lu dans les commentaires de la location que, pour le confort des invités, les propriétaires amenaient le premier repas faits de produits frais et locaux aux vacanciers vu qu’ils n’avaient pas encore eu le temps de faire les courses. Vous vous demandez s’il s’agit du repas que les propriétaires offrent aux locataires ou s’il s’agit d’un repas oublié par les locataires précédents qui n’aurait pas été enlevé du frigidaire par mégarde. Le reste du frigo est parfaitement propre.</p>
 <iframe allowfullscreen frameborder="0" height="100%" mozallowfullscreen style="min-width: 500px; min-height: 355px" src="https://app.wooclap.com/events/SUQPTU/questions/6853cd9291956e8ea271c9bb" width="100%">
@@ -103,11 +104,11 @@
 <p>Au travers de cet exemple, on se rend compte que votre opinion a évolué en fonction des informations qui se sont accumulées. Ainsi, la probabilité d’un évènement dépend des informations que nous avons de cet événement.</p>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="le-th%C3%A9or%C3%A8me-de-bayes.html"><span class="header-section-number">2</span> Le théorème de Bayes</a></div>
-<div class="next"><a href="les-axiomes-des-probabilit%C3%A9s.html"><span class="header-section-number">4</span> Les axiomes des probabilités</a></div>
+<div class="prev"><a href="le-th%C3%A9or%C3%A8me-de-bayes.html"><span class="header-section-number">3</span> Le théorème de Bayes</a></div>
+<div class="next"><a href="les-axiomes-des-probabilit%C3%A9s.html"><span class="header-section-number">5</span> Les axiomes des probabilités</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#accumuler-les-informations."><span class="header-section-number">3</span> Accumuler les informations.</a></li></ul>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#accumuler-les-informations."><span class="header-section-number">4</span> Accumuler les informations.</a></li></ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
@@ -123,7 +124,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Initiation à l’approche bayésienne du traitement des données</strong>" was written by Nicolas Stefaniak. It was last built on 2025-07-03.</p>
+    <p>"<strong>Initiation à l’approche bayésienne du traitement des données</strong>" was written by Nicolas Stefaniak. It was last built on 2025-07-09.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -4,16 +4,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 12 Exercices | Initiation à l’approche bayésienne du traitement des données</title>
+<title>Chapter 13 Exercices | Initiation à l’approche bayésienne du traitement des données</title>
 <meta name="author" content="Nicolas Stefaniak">
-<meta name="description" content="12.1 Exemples de démonstration Dans le cadre de cet atelier, nous allons montrer comment faire un t de Student, un corrélation, une analyse de variance et un modèle linéaire. Pour chaque analyse,...">
+<meta name="description" content="13.1 Exemples de démonstration Dans le cadre de cet atelier, nous allons montrer comment faire un t de Student, un corrélation, une analyse de variance et un modèle linéaire. Pour chaque analyse,...">
 <meta name="generator" content="bookdown 0.43 with bs4_book()">
-<meta property="og:title" content="Chapter 12 Exercices | Initiation à l’approche bayésienne du traitement des données">
+<meta property="og:title" content="Chapter 13 Exercices | Initiation à l’approche bayésienne du traitement des données">
 <meta property="og:type" content="book">
-<meta property="og:description" content="12.1 Exemples de démonstration Dans le cadre de cet atelier, nous allons montrer comment faire un t de Student, un corrélation, une analyse de variance et un modèle linéaire. Pour chaque analyse,...">
+<meta property="og:description" content="13.1 Exemples de démonstration Dans le cadre de cet atelier, nous allons montrer comment faire un t de Student, un corrélation, une analyse de variance et un modèle linéaire. Pour chaque analyse,...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 12 Exercices | Initiation à l’approche bayésienne du traitement des données">
-<meta name="twitter:description" content="12.1 Exemples de démonstration Dans le cadre de cet atelier, nous allons montrer comment faire un t de Student, un corrélation, une analyse de variance et un modèle linéaire. Pour chaque analyse,...">
+<meta name="twitter:title" content="Chapter 13 Exercices | Initiation à l’approche bayésienne du traitement des données">
+<meta name="twitter:description" content="13.1 Exemples de démonstration Dans le cadre de cet atelier, nous allons montrer comment faire un t de Student, un corrélation, une analyse de variance et un modèle linéaire. Pour chaque analyse,...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -72,19 +72,20 @@
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html"></a></li>
 <li><a class="" href="remerciements.html">Remerciements</a></li>
-<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
-<li><a class="" href="le-th%C3%A9or%C3%A8me-de-bayes.html"><span class="header-section-number">2</span> Le théorème de Bayes</a></li>
-<li><a class="" href="accumuler-les-informations..html"><span class="header-section-number">3</span> Accumuler les informations.</a></li>
-<li><a class="" href="les-axiomes-des-probabilit%C3%A9s.html"><span class="header-section-number">4</span> Les axiomes des probabilités</a></li>
-<li><a class="" href="quelques-rappels-sur-lapproche-de-neyman-pearson.html"><span class="header-section-number">5</span> Quelques rappels sur l’approche de Neyman-Pearson</a></li>
-<li><a class="" href="les-probabilit%C3%A9s-objectif-ou-subjectif.html"><span class="header-section-number">6</span> Les probabilités : objectif ou subjectif</a></li>
-<li><a class="" href="la-probabilit%C3%A9-a-priori.html"><span class="header-section-number">7</span> La probabilité a priori</a></li>
-<li><a class="" href="la-vraisemblance.html"><span class="header-section-number">8</span> La vraisemblance</a></li>
-<li><a class="" href="la-probabilit%C3%A9-a-posteriori.html"><span class="header-section-number">9</span> La probabilité a posteriori</a></li>
-<li><a class="" href="le-facteur-de-bayes.html"><span class="header-section-number">10</span> Le facteur de Bayes</a></li>
-<li><a class="" href="comparaison-avec-lapproche-fr%C3%A9quentiste.html"><span class="header-section-number">11</span> Comparaison avec l’approche fréquentiste</a></li>
-<li><a class="active" href="exercices.html"><span class="header-section-number">12</span> Exercices</a></li>
-<li><a class="" href="conclusions.html"><span class="header-section-number">13</span> Conclusions</a></li>
+<li><a class="" href="%C3%A1-propos-de-cet-ouvrage..html"><span class="header-section-number">1</span> Á propos de cet ouvrage.</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">2</span> Introduction</a></li>
+<li><a class="" href="le-th%C3%A9or%C3%A8me-de-bayes.html"><span class="header-section-number">3</span> Le théorème de Bayes</a></li>
+<li><a class="" href="accumuler-les-informations..html"><span class="header-section-number">4</span> Accumuler les informations.</a></li>
+<li><a class="" href="les-axiomes-des-probabilit%C3%A9s.html"><span class="header-section-number">5</span> Les axiomes des probabilités</a></li>
+<li><a class="" href="quelques-rappels-sur-lapproche-de-neyman-pearson.html"><span class="header-section-number">6</span> Quelques rappels sur l’approche de Neyman-Pearson</a></li>
+<li><a class="" href="les-probabilit%C3%A9s-objectif-ou-subjectif.html"><span class="header-section-number">7</span> Les probabilités : objectif ou subjectif</a></li>
+<li><a class="" href="la-probabilit%C3%A9-a-priori.html"><span class="header-section-number">8</span> La probabilité a priori</a></li>
+<li><a class="" href="la-vraisemblance.html"><span class="header-section-number">9</span> La vraisemblance</a></li>
+<li><a class="" href="la-probabilit%C3%A9-a-posteriori.html"><span class="header-section-number">10</span> La probabilité a posteriori</a></li>
+<li><a class="" href="le-facteur-de-bayes.html"><span class="header-section-number">11</span> Le facteur de Bayes</a></li>
+<li><a class="" href="comparaison-avec-lapproche-fr%C3%A9quentiste.html"><span class="header-section-number">12</span> Comparaison avec l’approche fréquentiste</a></li>
+<li><a class="active" href="exercices.html"><span class="header-section-number">13</span> Exercices</a></li>
+<li><a class="" href="conclusions.html"><span class="header-section-number">14</span> Conclusions</a></li>
 <li><a class="" href="references.html">References</a></li>
 </ul>
 
@@ -93,26 +94,26 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="exercices" class="section level1" number="12">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="exercices" class="section level1" number="13">
 <h1>
-<span class="header-section-number">12</span> Exercices<a class="anchor" aria-label="anchor" href="#exercices"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13</span> Exercices<a class="anchor" aria-label="anchor" href="#exercices"><i class="fas fa-link"></i></a>
 </h1>
-<div id="exemples-de-démonstration" class="section level2" number="12.1">
+<div id="exemples-de-démonstration" class="section level2" number="13.1">
 <h2>
-<span class="header-section-number">12.1</span> Exemples de démonstration<a class="anchor" aria-label="anchor" href="#exemples-de-d%C3%A9monstration"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.1</span> Exemples de démonstration<a class="anchor" aria-label="anchor" href="#exemples-de-d%C3%A9monstration"><i class="fas fa-link"></i></a>
 </h2>
 <p>Dans le cadre de cet atelier, nous allons montrer comment faire un <em>t</em> de Student, un corrélation, une analyse de variance et un modèle linéaire.</p>
 <p>Pour chaque analyse, un exemple (qui peut être fictif) qui servira à illustrer la manière dont les fonctions doivent être utilisées.
 Les données de ces exemples sont disponibles dans le fichier données <a href="https://osf.io/hjdb9/files/osfstorage/686597910f867999377ea89d">Demo.xls</a></p>
-<div id="le-t-de-student" class="section level3 panelset" number="12.1.1">
+<div id="le-t-de-student" class="section level3 panelset" number="13.1.1">
 <h3>
-<span class="header-section-number">12.1.1</span> Le t de Student<a class="anchor" aria-label="anchor" href="#le-t-de-student"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.1.1</span> Le t de Student<a class="anchor" aria-label="anchor" href="#le-t-de-student"><i class="fas fa-link"></i></a>
 </h3>
 <p>Des chercheurs se sont demandé si le TOLD-P:3 permettait de discriminer des enfants présentant différentes formes de dysphasies. Ils ont comparé les scores obtenus par 50 enfants présentant une dysphasie phonologico-syntaxique (PS, les enfants présentent des difficultés pour s’exprimer) aux scores obtenus par 50 enfants présentant une dysphasie sémantique pragmatique (SP, les enfants présentent des troubles lexicaux) à ce tests.
 Les données sont disponibles sur la feuille TOLD.</p>
-<div id="avec-r" class="section level4" number="12.1.1.1">
+<div id="avec-r" class="section level4" number="13.1.1.1">
 <h4>
-<span class="header-section-number">12.1.1.1</span> Avec R<a class="anchor" aria-label="anchor" href="#avec-r"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.1.1.1</span> Avec R<a class="anchor" aria-label="anchor" href="#avec-r"><i class="fas fa-link"></i></a>
 </h4>
 <p>On suppose que les packages sont chargés. On commence par importer les données avec la fonction <code>read_xlsx</code> du package <em>readxl</em> <span class="citation">(<a href="references.html#ref-readxl">Wickham &amp; Bryan, 2025</a>)</span>.</p>
 <div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
@@ -187,9 +188,9 @@ Les données sont disponibles sur la feuille TOLD.</p>
 <div class="inline-figure"><img src="bookdown-demo_files/figure-html/tdemo7-1.png" width="672"></div>
 <p>Il est également possible d’adapter le code que j’ai utilisé dans le chapitre sur le <a href="le-facteur-de-bayes.html#le-facteur-de-bayes">Facteur de Bayes</a></p>
 </div>
-<div id="avec-jamovi" class="section level4" number="12.1.1.2">
+<div id="avec-jamovi" class="section level4" number="13.1.1.2">
 <h4>
-<span class="header-section-number">12.1.1.2</span> Avec Jamovi<a class="anchor" aria-label="anchor" href="#avec-jamovi"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.1.1.2</span> Avec Jamovi<a class="anchor" aria-label="anchor" href="#avec-jamovi"><i class="fas fa-link"></i></a>
 </h4>
 <p>Pour faire un <em>t</em> de Student avec Jamovi, on clique sur le menu <em>t</em> et on choisit le type de <em>t</em> de l’approche bayésienne qui nous convient.</p>
 <div class="inline-figure"><img src="Jamovi/t1.png" width="360"></div>
@@ -203,16 +204,16 @@ On coche les cases qui nous permettront d’avoir les analyses séquentielles et
 <p>Pour les résultats, ils sont théoriquement identiques (ou très proches à ceux présentés dans la section R).</p>
 </div>
 </div>
-<div id="la-corrélation" class="section level3 panelset" number="12.1.2">
+<div id="la-corrélation" class="section level3 panelset" number="13.1.2">
 <h3>
-<span class="header-section-number">12.1.2</span> La corrélation<a class="anchor" aria-label="anchor" href="#la-corr%C3%A9lation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.1.2</span> La corrélation<a class="anchor" aria-label="anchor" href="#la-corr%C3%A9lation"><i class="fas fa-link"></i></a>
 </h3>
 <p>Kainafets et Relfihcs (5022) se sont intéressés à l’impact de la télévision sur les stéréotypes. Ils émettent l’hypothèse selon laquelle un programme de télévision peut avoir un impact prosocial. Pour tester leur hypothèse, ils proposent à leurs participants de regarder une fiction dans laquelle des personnes issues de différentes minorités voyagent dans l’espace à la recherche d’une planète qui permettrait à l’espèce humaine de survivre. Durant la fiction, plusieurs difficultés s’opposent à cet objectif. Les protagonistes arrivent néanmoins à résoudre ces problèmes, mais uniquement lorsque les différentes minorités agissent de concert avec le groupe majoritaire. Après la fiction, les chercheurs demandent aux participants de choisir parmi 50 descriptions de personnes (dont la moitié sont issues de minorités et l’autre moitié du groupe majoritaire), celles avec lesquelles elles voudraient collaborer pour construire une maison. Sur chacune des descriptions, une photo de la personne décrite était présentée en plus des habiletés et des diplômes obtenus. Après avoir décidé quelles étaient les personnes avec lesquelles elles aimeraient collaborer pour la construction d’une maison, les participants étaient invités à évaluer sur une échelle de 1 à 7 (de pas du tout probable à très probable), la plausibilité de la fiction présentée dans la première phase de l’étude. L’hypothèse des chercheurs est que les personnes qui trouveront la fiction plausible seront plus enclines à choisir des collaborateurs issus de minorités pour la construction de la maison. En plus de l’évaluation de la plausibilité, les chercheurs ont recueilli le nombre de personnes issues de minorités dans le choix des collaborateurs choisis par les 35 participants qui ont pris part à l’étude.</p>
 <p>Les données sont présentées sur la feuille plausibilite.
 Pour cet exercice, nous illustrerons comment obtenir une distribution a posteriori. Le raisonnement vaut également pour les autres fonctions décrites dans ce tutoriel.</p>
-<div id="avec-r-1" class="section level4" number="12.1.2.1">
+<div id="avec-r-1" class="section level4" number="13.1.2.1">
 <h4>
-<span class="header-section-number">12.1.2.1</span> Avec R<a class="anchor" aria-label="anchor" href="#avec-r-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.1.2.1</span> Avec R<a class="anchor" aria-label="anchor" href="#avec-r-1"><i class="fas fa-link"></i></a>
 </h4>
 <p>On commence par importer les données</p>
 <div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
@@ -339,9 +340,9 @@ Deux méthodes peuvent être utilisées pour atteindre cet objectif.</p>
 <div class="inline-figure"><img src="bookdown-demo_files/figure-html/corrdemo6-1.png" width="672"></div>
 <p>Notez qu’ici, utiliser une échelle logarithmique sur le graphique aurait pu faire sens.</p>
 </div>
-<div id="avec-jamovi-1" class="section level4" number="12.1.2.2">
+<div id="avec-jamovi-1" class="section level4" number="13.1.2.2">
 <h4>
-<span class="header-section-number">12.1.2.2</span> Avec Jamovi<a class="anchor" aria-label="anchor" href="#avec-jamovi-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.1.2.2</span> Avec Jamovi<a class="anchor" aria-label="anchor" href="#avec-jamovi-1"><i class="fas fa-link"></i></a>
 </h4>
 <p>On commence par choisir le menu corrélation bayésienne par paire.</p>
 <div class="inline-figure"><img src="Jamovi/corr1.png" width="263"></div>
@@ -351,15 +352,15 @@ Deux méthodes peuvent être utilisées pour atteindre cet objectif.</p>
 <div class="inline-figure"><img src="Jamovi/corr3.png" width="326"></div>
 </div>
 </div>
-<div id="la-régression" class="section level3 panelset" number="12.1.3">
+<div id="la-régression" class="section level3 panelset" number="13.1.3">
 <h3>
-<span class="header-section-number">12.1.3</span> La régression<a class="anchor" aria-label="anchor" href="#la-r%C3%A9gression"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.1.3</span> La régression<a class="anchor" aria-label="anchor" href="#la-r%C3%A9gression"><i class="fas fa-link"></i></a>
 </h3>
 <p>Faire une régression sous l’angle bayésien ne présente pas de réelle particularité par rapport au fait de faire une corrélation ou un test <em>t</em>.</p>
 <p>Des chercheurs s’intéressent au niveau de détresse émotionnelle et formulent l’hypothèse selon laquelle la détresse serait inversement reliée à l’adoption de stratégies de coping. Ces chercheurs demandent à leurs participants d’évaluer sur une échelle de 1 (pas du tout) à 7 (en totale détresse) leur niveau de détresse émotionnelle. Ils leur demandent ensuite d’expliquer les comportements qu’ils adoptent lorsqu’ils ne se sentent pas bien. Les chercheurs attendent 30 réponses. Une fois, les réponses récoltées, ils comptent le nombre de comportements de coping. Par ailleurs, les chercheurs ont également utilisé une échelle d’anxiété sur 50 et ont demandé l’âge des participants.</p>
-<div id="avec-r-2" class="section level4" number="12.1.3.1">
+<div id="avec-r-2" class="section level4" number="13.1.3.1">
 <h4>
-<span class="header-section-number">12.1.3.1</span> Avec R<a class="anchor" aria-label="anchor" href="#avec-r-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.1.3.1</span> Avec R<a class="anchor" aria-label="anchor" href="#avec-r-2"><i class="fas fa-link"></i></a>
 </h4>
 <p>On commence par importer les données</p>
 <div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
@@ -449,9 +450,9 @@ Deux méthodes peuvent être utilisées pour atteindre cet objectif.</p>
 ## Bayes factor type: BFlinearModel, JZS</code></pre>
 <p>En l’occurrence, le facteur de Bayes est très largement supérieur à 100, on sait que l’âge a un apport important au modèle.</p>
 </div>
-<div id="avec-jamovi-2" class="section level4" number="12.1.3.2">
+<div id="avec-jamovi-2" class="section level4" number="13.1.3.2">
 <h4>
-<span class="header-section-number">12.1.3.2</span> Avec Jamovi<a class="anchor" aria-label="anchor" href="#avec-jamovi-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.1.3.2</span> Avec Jamovi<a class="anchor" aria-label="anchor" href="#avec-jamovi-2"><i class="fas fa-link"></i></a>
 </h4>
 <p>Dans Jamovi, on peut faire des modèles linéaires avec l’approche bayésienne en cliquant sur Bayesian Linear Regression.</p>
 <div class="inline-figure"><img src="Jamovi/reg1.png" width="154"></div>
@@ -463,15 +464,15 @@ Deux méthodes peuvent être utilisées pour atteindre cet objectif.</p>
 Il y a d’autres options disponibles mais elles semblent être encore en développement dans ma version (2.6.44) et ne fournissent pas de résultats.</div>
 </div>
 </div>
-<div id="lanalyse-de-variance" class="section level3 panelset" number="12.1.4">
+<div id="lanalyse-de-variance" class="section level3 panelset" number="13.1.4">
 <h3>
-<span class="header-section-number">12.1.4</span> L’analyse de variance<a class="anchor" aria-label="anchor" href="#lanalyse-de-variance"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.1.4</span> L’analyse de variance<a class="anchor" aria-label="anchor" href="#lanalyse-de-variance"><i class="fas fa-link"></i></a>
 </h3>
 <p>Stefaniak et al. <span class="citation">(<a href="references.html#ref-STEFANIAK2008">Stefaniak et al., 2008</a>)</span> se sont intéressés aux mécanismes d’apprentissage implicite. Ils ont administré à leurs participants une tâche de temps de réaction sériel. Dans cette tâche, on demande aux participants de répondre le plus rapidement et le plus précisément possible aux stimuli qui apparaissent à différentes localisation sur l’écran. Les stimuli n’apparaissent pas de manière aléatoire mais suivent, à l’insu des participants, une séquence. Cette séquence suit une structure probabilité (85% de régularités et 15% d’irrégularités) La tâche est composée de 15 blocs dans lesquels la séquence est présentée à 8 reprises. Les blocs 1 à 12 sont des blocs d’apprentissage. Le bloc 13 est un bloc dans lequel une autre séquence que la séquence d’apprentissage est utilisée et le bloc 14 est à nouveau un bloc où la séquence d’apprentissage initiale est utilisée. L’apprentissage se manifeste par des temps de réaction de plus en plus courts entre les blocs 1 à 12 et un ralentissement de la vitesse de réponse pour le bloc 13.
 Leur objectif était de voir si une connaissance explicite de la séquence améliorait l’apprentissage. Ils ont donc comparé l’apprentissage pour un groupe en condition incidente, un groupe dont les connaissances se limitait à la séquence régulière et un groupe qui avait non seulement la connaissance de la séquence régulière mais également de la manière dont les irrégularités étaient construites.</p>
-<div id="avec-r-3" class="section level4" number="12.1.4.1">
+<div id="avec-r-3" class="section level4" number="13.1.4.1">
 <h4>
-<span class="header-section-number">12.1.4.1</span> Avec R<a class="anchor" aria-label="anchor" href="#avec-r-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.1.4.1</span> Avec R<a class="anchor" aria-label="anchor" href="#avec-r-3"><i class="fas fa-link"></i></a>
 </h4>
 <p>Nous n’allons pas reprendre les étapes de bases et les réexpliquer. Ce sont toujours les mêmes. Nous focaliserons sur la préparation du jeu de données et sur la réalisation de l’analyse.</p>
 <p>Tout d’abord, il faut préparer les données car, pour des mesures répétées, R a besoin d’un format long et non d’un format large<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;je présuppose que vous savez ce que c’est si vous utilisez régulièrement R.&lt;/p&gt;"><sup>14</sup></a>. Pour ce faire, on va sélectionner les variables d’intérêt avec le package <em>dplyr</em> <span class="citation">(<a href="references.html#ref-dplyr">Wickham et al., 2023</a>)</span> et sa fonctioin <code>select</code> et utiliser la fonction <code>melt</code> du package <em>reshape2</em> <span class="citation">(<a href="references.html#ref-reshape">Wickham, 2007</a>)</span>.</p>
@@ -540,9 +541,9 @@ Leur objectif était de voir si une connaissance explicite de la séquence amél
 ## $method
 ## [1] "quadrature"</code></pre>
 </div>
-<div id="avec-jamovi-3" class="section level4" number="12.1.4.2">
+<div id="avec-jamovi-3" class="section level4" number="13.1.4.2">
 <h4>
-<span class="header-section-number">12.1.4.2</span> Avec Jamovi<a class="anchor" aria-label="anchor" href="#avec-jamovi-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.1.4.2</span> Avec Jamovi<a class="anchor" aria-label="anchor" href="#avec-jamovi-3"><i class="fas fa-link"></i></a>
 </h4>
 <p>Pour faire une anova bayésienne mixte, il faut choisir le module anova à meure répétée bayésienne.</p>
 <div class="inline-figure"><img src="Jamovi/aov1.png" width="198"></div>
@@ -554,9 +555,9 @@ Leur objectif était de voir si une connaissance explicite de la séquence amél
 </div>
 </div>
 </div>
-<div id="exercice-2" class="section level2" number="12.2">
+<div id="exercice-2" class="section level2" number="13.2">
 <h2>
-<span class="header-section-number">12.2</span> Exercice 2<a class="anchor" aria-label="anchor" href="#exercice-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.2</span> Exercice 2<a class="anchor" aria-label="anchor" href="#exercice-2"><i class="fas fa-link"></i></a>
 </h2>
 <p>Priolo et ses collaborateur <span class="citation">(<a href="references.html#ref-Priolo2023">Priolo et al., 2023</a>)</span> ont cherché à repliqué les effets des nudges sur l’efficacité comportementale et l’acceptabilité dans le cadre d’une expérience de terrain en contexte naturel. Le nudge étudié consiste à définir par défaut l’option « zéro sucre » dans les distributeurs de boissons chaudes d’une université française. Deux campus ont été comparés : le campus A (option par défaut : 0 sucre) et le campus B (option par défaut : 3 sucres). L’efficacité du nudge a été mesurée en observant la quantité de sucre effectivement choisie par les participants, et son acceptabilité a été évaluée au moyen d’un questionnaire.</p>
 <p>Les données (généreusement mises à disposition par Daniel Priolo) sont disponibles dans le fichier Nudge.</p>
@@ -641,9 +642,9 @@ L’analyse qu’il faut réaliser est un test <em>t</em> de Student.</p>
 L’analyse séquentielle indique que la tendance est globalement toujours ascendante au fur et à mesure que l’échantillon grandit et nos résultats ne semblent pas être influencés par le choix du prior puisque les analyses de robustesses montrent que les facteurs bayésiens sont supérieur à <span class="math inline">\(10^6\)</span> pour l’ensemble des distributions a priori examinées.</p>
 </details>
 </div>
-<div id="exercice-3" class="section level2" number="12.3">
+<div id="exercice-3" class="section level2" number="13.3">
 <h2>
-<span class="header-section-number">12.3</span> Exercice 3<a class="anchor" aria-label="anchor" href="#exercice-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.3</span> Exercice 3<a class="anchor" aria-label="anchor" href="#exercice-3"><i class="fas fa-link"></i></a>
 </h2>
 <p>Testez si l’acceptabilité du nudge dépend de la force de l’attitude.
 Vous n’avez pas d’étude qui vous offre des balises. Adoptez une attitude qui vous permettra de justifier vos résultats.</p>
@@ -756,9 +757,9 @@ Cliquez pour la solution
 <p>En l’occurence le facteur de Bayes indique des preuves en faveur d’une corrélation. Néanmoins cette corrélation est faible car pour des prior supérieur à medium, le facteur de Bayes tend vers une zone d’incertitude.</p>
 </details>
 </div>
-<div id="exercice-4" class="section level2" number="12.4">
+<div id="exercice-4" class="section level2" number="13.4">
 <h2>
-<span class="header-section-number">12.4</span> Exercice 4<a class="anchor" aria-label="anchor" href="#exercice-4"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.4</span> Exercice 4<a class="anchor" aria-label="anchor" href="#exercice-4"><i class="fas fa-link"></i></a>
 </h2>
 <p>Vérifiez si l’écart sur la consommation observée de sucres entre les deux campus ne peut pas s’expliquer par des différences de consommations entre les étudiant·es qui préexistaient.</p>
 <p>Soyez cohérent·e dans le choix du prior
@@ -815,9 +816,9 @@ Cliquez pour la solution
 <p>Les moyennes indiquent que les personnes sur le campus A consomment moins de sucre que celles sur le campus B et que cette différence est d’autant plus marquée sur la différence observée par rapport à la différence rapportée de leur consommation habituelle. Le rapport entre le facteur de Bayes avec l’interaction et sans l’interaction est de 287, ce qui représente des preuves extrêmes en faveur de la présence de l’interaction.</p>
 </details>
 </div>
-<div id="exercice-5" class="section level2" number="12.5">
+<div id="exercice-5" class="section level2" number="13.5">
 <h2>
-<span class="header-section-number">12.5</span> Exercice 5<a class="anchor" aria-label="anchor" href="#exercice-5"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.5</span> Exercice 5<a class="anchor" aria-label="anchor" href="#exercice-5"><i class="fas fa-link"></i></a>
 </h2>
 <p>Drouillet et al. <span class="citation">(<a href="references.html#ref-Drouillet2018">2018</a>)</span> ont voulu savoir dans quelle mesure les capacités d’apprentissage procédural étaient impliqués dans la compréhension des métaphores.
 Dans cette étude, les participants devaient décider si une phrase avait du sens ou non. Les participant·es étaient amené·es à traiter des expressions littérales (balayer la poussière), métaphorique (balayer ses soucis) ou pour lesquels il était très difficile de trouver un sens (balayer les nuages).
@@ -853,24 +854,24 @@ Cliquez pour la solution
 </div>
 
   <div class="chapter-nav">
-<div class="prev"><a href="comparaison-avec-lapproche-fr%C3%A9quentiste.html"><span class="header-section-number">11</span> Comparaison avec l’approche fréquentiste</a></div>
-<div class="next"><a href="conclusions.html"><span class="header-section-number">13</span> Conclusions</a></div>
+<div class="prev"><a href="comparaison-avec-lapproche-fr%C3%A9quentiste.html"><span class="header-section-number">12</span> Comparaison avec l’approche fréquentiste</a></div>
+<div class="next"><a href="conclusions.html"><span class="header-section-number">14</span> Conclusions</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#exercices"><span class="header-section-number">12</span> Exercices</a></li>
+<li><a class="nav-link" href="#exercices"><span class="header-section-number">13</span> Exercices</a></li>
 <li>
-<a class="nav-link" href="#exemples-de-d%C3%A9monstration"><span class="header-section-number">12.1</span> Exemples de démonstration</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#le-t-de-student"><span class="header-section-number">12.1.1</span> Le t de Student</a></li>
-<li><a class="nav-link" href="#la-corr%C3%A9lation"><span class="header-section-number">12.1.2</span> La corrélation</a></li>
-<li><a class="nav-link" href="#la-r%C3%A9gression"><span class="header-section-number">12.1.3</span> La régression</a></li>
-<li><a class="nav-link" href="#lanalyse-de-variance"><span class="header-section-number">12.1.4</span> L’analyse de variance</a></li>
+<a class="nav-link" href="#exemples-de-d%C3%A9monstration"><span class="header-section-number">13.1</span> Exemples de démonstration</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#le-t-de-student"><span class="header-section-number">13.1.1</span> Le t de Student</a></li>
+<li><a class="nav-link" href="#la-corr%C3%A9lation"><span class="header-section-number">13.1.2</span> La corrélation</a></li>
+<li><a class="nav-link" href="#la-r%C3%A9gression"><span class="header-section-number">13.1.3</span> La régression</a></li>
+<li><a class="nav-link" href="#lanalyse-de-variance"><span class="header-section-number">13.1.4</span> L’analyse de variance</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#exercice-2"><span class="header-section-number">12.2</span> Exercice 2</a></li>
-<li><a class="nav-link" href="#exercice-3"><span class="header-section-number">12.3</span> Exercice 3</a></li>
-<li><a class="nav-link" href="#exercice-4"><span class="header-section-number">12.4</span> Exercice 4</a></li>
-<li><a class="nav-link" href="#exercice-5"><span class="header-section-number">12.5</span> Exercice 5</a></li>
+<li><a class="nav-link" href="#exercice-2"><span class="header-section-number">13.2</span> Exercice 2</a></li>
+<li><a class="nav-link" href="#exercice-3"><span class="header-section-number">13.3</span> Exercice 3</a></li>
+<li><a class="nav-link" href="#exercice-4"><span class="header-section-number">13.4</span> Exercice 4</a></li>
+<li><a class="nav-link" href="#exercice-5"><span class="header-section-number">13.5</span> Exercice 5</a></li>
 </ul>
 
       <div class="book-extra">
@@ -887,7 +888,7 @@ Cliquez pour la solution
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Initiation à l’approche bayésienne du traitement des données</strong>" was written by Nicolas Stefaniak. It was last built on 2025-07-03.</p>
+    <p>"<strong>Initiation à l’approche bayésienne du traitement des données</strong>" was written by Nicolas Stefaniak. It was last built on 2025-07-09.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
