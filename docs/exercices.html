@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 13 Exercices | Initiation à l’approche bayésienne du traitement des données</title>
+<meta name="author" content="Nicolas Stefaniak">
+<meta name="description" content="13.1 Exemples de démonstration Dans le cadre de cet atelier, nous allons montrer comment faire un t de Student, un corrélation, une analyse de variance et un modèle linéaire. Pour chaque analyse,...">
+<meta name="generator" content="bookdown 0.43 with bs4_book()">
+<meta property="og:title" content="Chapter 13 Exercices | Initiation à l’approche bayésienne du traitement des données">
+<meta property="og:type" content="book">
+<meta property="og:description" content="13.1 Exemples de démonstration Dans le cadre de cet atelier, nous allons montrer comment faire un t de Student, un corrélation, une analyse de variance et un modèle linéaire. Pour chaque analyse,...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 13 Exercices | Initiation à l’approche bayésienne du traitement des données">
+<meta name="twitter:description" content="13.1 Exemples de démonstration Dans le cadre de cet atelier, nous allons montrer comment faire un t de Student, un corrélation, une analyse de variance et un modèle linéaire. Pour chaque analyse,...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+<script src="libs/tabwid-1.1.3/tabwid.js"></script><link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><script src="libs/plotly-binding-4.11.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script><link href="libs/panelset-0.3.0/panelset.css" rel="stylesheet">
+<script src="libs/panelset-0.3.0/panelset.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+          margin-bottom: 0em;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Initiation à l’approche bayésienne du traitement des données</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li><a class="" href="remerciements.html">Remerciements</a></li>
+<li><a class="" href="%C3%A1-propos-de-cet-ouvrage..html"><span class="header-section-number">1</span> Á propos de cet ouvrage.</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">2</span> Introduction</a></li>
+<li><a class="" href="le-th%C3%A9or%C3%A8me-de-bayes.html"><span class="header-section-number">3</span> Le théorème de Bayes</a></li>
+<li><a class="" href="accumuler-les-informations..html"><span class="header-section-number">4</span> Accumuler les informations.</a></li>
+<li><a class="" href="les-axiomes-des-probabilit%C3%A9s.html"><span class="header-section-number">5</span> Les axiomes des probabilités</a></li>
+<li><a class="" href="quelques-rappels-sur-lapproche-de-neyman-pearson.html"><span class="header-section-number">6</span> Quelques rappels sur l’approche de Neyman-Pearson</a></li>
+<li><a class="" href="les-probabilit%C3%A9s-objectif-ou-subjectif.html"><span class="header-section-number">7</span> Les probabilités : objectif ou subjectif</a></li>
+<li><a class="" href="la-probabilit%C3%A9-a-priori.html"><span class="header-section-number">8</span> La probabilité a priori</a></li>
+<li><a class="" href="la-vraisemblance.html"><span class="header-section-number">9</span> La vraisemblance</a></li>
+<li><a class="" href="la-probabilit%C3%A9-a-posteriori.html"><span class="header-section-number">10</span> La probabilité a posteriori</a></li>
+<li><a class="" href="le-facteur-de-bayes.html"><span class="header-section-number">11</span> Le facteur de Bayes</a></li>
+<li><a class="" href="comparaison-avec-lapproche-fr%C3%A9quentiste.html"><span class="header-section-number">12</span> Comparaison avec l’approche fréquentiste</a></li>
+<li><a class="active" href="exercices.html"><span class="header-section-number">13</span> Exercices</a></li>
+<li><a class="" href="conclusions.html"><span class="header-section-number">14</span> Conclusions</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="exercices" class="section level1" number="13">
+<h1>
+<span class="header-section-number">13</span> Exercices<a class="anchor" aria-label="anchor" href="#exercices"><i class="fas fa-link"></i></a>
+</h1>
+<div id="exemples-de-démonstration" class="section level2" number="13.1">
+<h2>
+<span class="header-section-number">13.1</span> Exemples de démonstration<a class="anchor" aria-label="anchor" href="#exemples-de-d%C3%A9monstration"><i class="fas fa-link"></i></a>
+</h2>
+<p>Dans le cadre de cet atelier, nous allons montrer comment faire un <em>t</em> de Student, un corrélation, une analyse de variance et un modèle linéaire.</p>
+<p>Pour chaque analyse, un exemple (qui peut être fictif) qui servira à illustrer la manière dont les fonctions doivent être utilisées.
+Les données de ces exemples sont disponibles dans le fichier données <a href="https://osf.io/hjdb9/files/osfstorage/686597910f867999377ea89d">Demo.xls</a></p>
+<div id="le-t-de-student" class="section level3 panelset" number="13.1.1">
+<h3>
+<span class="header-section-number">13.1.1</span> Le t de Student<a class="anchor" aria-label="anchor" href="#le-t-de-student"><i class="fas fa-link"></i></a>
+</h3>
+<p>Des chercheurs se sont demandé si le TOLD-P:3 permettait de discriminer des enfants présentant différentes formes de dysphasies. Ils ont comparé les scores obtenus par 50 enfants présentant une dysphasie phonologico-syntaxique (PS, les enfants présentent des difficultés pour s’exprimer) aux scores obtenus par 50 enfants présentant une dysphasie sémantique pragmatique (SP, les enfants présentent des troubles lexicaux) à ce tests.
+Les données sont disponibles sur la feuille TOLD.</p>
+<div id="avec-r" class="section level4" number="13.1.1.1">
+<h4>
+<span class="header-section-number">13.1.1.1</span> Avec R<a class="anchor" aria-label="anchor" href="#avec-r"><i class="fas fa-link"></i></a>
+</h4>
+<p>On suppose que les packages sont chargés. On commence par importer les données avec la fonction <code>read_xlsx</code> du package <em>readxl</em> <span class="citation">(<a href="references.html#ref-readxl">Wickham &amp; Bryan, 2025</a>)</span>.</p>
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">TOLD</span><span class="op">&lt;-</span><span class="fu">read_xlsx</span><span class="op">(</span><span class="st">"./Exercices/Demo.xlsx"</span>, sheet<span class="op">=</span><span class="st">"TOLD"</span><span class="op">)</span></span></code></pre></div>
+<p>On vérifie le jeu de données. En particulier, on s’assure que les données soient considérées comme un data.frame et que les variables</p>
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">TOLD</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## tibble [100 × 3] (S3: tbl_df/tbl/data.frame)
+##  $ groupe: chr [1:100] "PS" "PS" "PS" "PS" ...
+##  $ TOLD  : num [1:100] 93 117 113 102 91 89 83 109 100 86 ...
+##  $ CASL  : num [1:100] 44 65 54 50 42 48 52 64 57 57 ...</code></pre>
+<p>En l’occurrence, le jeu de données est à la fois un tibble et un data.frame. Cela ne devrait pas poser de souci. En revanche, le fait que la variable groupe soit considérée comme du caractère risque de générer un message d’erreur. On la transforme en facteur grâce à la fonction <code>as.factor</code>.</p>
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">TOLD</span><span class="op">$</span><span class="va">groupe</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">TOLD</span><span class="op">$</span><span class="va">groupe</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">TOLD</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## tibble [100 × 3] (S3: tbl_df/tbl/data.frame)
+##  $ groupe: Factor w/ 2 levels "PS","SP": 1 1 1 1 1 1 1 1 1 1 ...
+##  $ TOLD  : num [1:100] 93 117 113 102 91 89 83 109 100 86 ...
+##  $ CASL  : num [1:100] 44 65 54 50 42 48 52 64 57 57 ...</code></pre>
+<p>On regarde les statistiques descriptives pour pouvoir interpréter les données. Il y a de nombreuses manière de le faire. J’utilise généralement la fonction <code>describe</code> du package <em>psych</em> <span class="citation">(<a href="references.html#ref-psych">Revelle, 2025</a>)</span> mais n’importe quelle autre fonction fournissant les statistiques descriptives fait l’affaire.</p>
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/describe.by.html">describeBy</a></span><span class="op">(</span><span class="va">TOLD</span> <span class="op">~</span><span class="va">groupe</span>, data<span class="op">=</span> <span class="va">TOLD</span>,mat<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##       item group1 vars  n  mean       sd median trimmed     mad min max range
+## TOLD1    1     PS    1 50 97.70 8.944842     98  97.425 10.3782  83 117    34
+## TOLD2    2     SP    1 50 86.62 8.886794     85  86.300 10.3782  73 103    30
+##            skew  kurtosis       se
+## TOLD1 0.1361170 -1.024715 1.264992
+## TOLD2 0.2100576 -1.126223 1.256782</code></pre>
+<p>On utilise la fonction <code>ttestBF</code> du package <em>BayesFactor</em> <span class="citation">(<a href="references.html#ref-Morey2024">Morey &amp; Rouder, 2024</a>)</span> pour obtenir le facteur de Bayes. Les différents arguments sont expliqués par des comentaires dans le code.</p>
+<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">t.out</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/ttestBF.html">ttestBF</a></span><span class="op">(</span><span class="co"># formule du type VD ~ VI</span></span>
+<span>              formula <span class="op">=</span><span class="va">TOLD</span> <span class="op">~</span><span class="va">groupe</span>, </span>
+<span>               <span class="co"># nom du jeu de données</span></span>
+<span>               data<span class="op">=</span><span class="va">TOLD</span>, </span>
+<span>               paired <span class="op">=</span><span class="cn">F</span>, </span>
+<span>              <span class="co"># l'argument mu permet d'indiquer une norme, notamment dans</span></span>
+<span>              <span class="co"># les t avec un seul échantillon</span></span>
+<span>              <span class="co"># cet argument n'est pas pris en compte si on a une formule</span></span>
+<span>              <span class="co"># et que la valeur vaut 0</span></span>
+<span>               mu <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>               <span class="co"># distribution a priori à .707</span></span>
+<span>               rscale <span class="op">=</span> <span class="fl">.707</span>,</span>
+<span>               <span class="co"># faut il calculer la distribution a posteriori (F =non)</span></span>
+<span>               posterior <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> </span>
+<span><span class="va">t.out</span></span></code></pre></div>
+<pre><code>## Bayes factor analysis
+## --------------
+## [1] Alt., r=0.707 : 796968 ±0%
+## 
+## Against denominator:
+##   Null, mu1-mu2 = 0 
+## ---
+## Bayes factor type: BFindepSample, JZS</code></pre>
+<p>Il est à noter qu’on peut également utiliser la fonction <code>bfttest</code> du package <em>changeofprediction</em> <span class="citation">(<a href="references.html#ref-Moritz2025">Dechamps, 2025</a>)</span> Son mode de fonctionnement est assez similaire. Il y a deux différences : il est possible de préciser si on veut une hypothèse unilatérale ou bilatérale et on peut fixer un a priori sur la localisation de la taille d’effet.</p>
+<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">bf.exp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/changeofevidence/man/bfttest.html">bfttest</a></span><span class="op">(</span><span class="va">TOLD</span> <span class="op">~</span><span class="va">groupe</span>, , </span>
+<span>                  data<span class="op">=</span> <span class="va">TOLD</span>, </span>
+<span>                  alternative <span class="op">=</span> <span class="st">"two.sided"</span>, </span>
+<span>                  prior.loc <span class="op">=</span> <span class="fl">0</span>, </span>
+<span>                  prior.r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##   |                                                                              |                                                                      |   0%  |                                                                              |=                                                                     |   2%  |                                                                              |===                                                                   |   4%  |                                                                              |====                                                                  |   6%  |                                                                              |======                                                                |   8%  |                                                                              |=======                                                               |  10%  |                                                                              |=========                                                             |  12%  |                                                                              |==========                                                            |  14%  |                                                                              |===========                                                           |  16%  |                                                                              |=============                                                         |  18%  |                                                                              |==============                                                        |  20%  |                                                                              |================                                                      |  22%  |                                                                              |=================                                                     |  24%  |                                                                              |===================                                                   |  27%  |                                                                              |====================                                                  |  29%  |                                                                              |=====================                                                 |  31%  |                                                                              |=======================                                               |  33%  |                                                                              |========================                                              |  35%  |                                                                              |==========================                                            |  37%  |                                                                              |===========================                                           |  39%  |                                                                              |=============================                                         |  41%  |                                                                              |==============================                                        |  43%  |                                                                              |===============================                                       |  45%  |                                                                              |=================================                                     |  47%  |                                                                              |==================================                                    |  49%  |                                                                              |====================================                                  |  51%  |                                                                              |=====================================                                 |  53%  |                                                                              |=======================================                               |  55%  |                                                                              |========================================                              |  57%  |                                                                              |=========================================                             |  59%  |                                                                              |===========================================                           |  61%  |                                                                              |============================================                          |  63%  |                                                                              |==============================================                        |  65%  |                                                                              |===============================================                       |  67%  |                                                                              |=================================================                     |  69%  |                                                                              |==================================================                    |  71%  |                                                                              |===================================================                   |  73%  |                                                                              |=====================================================                 |  76%  |                                                                              |======================================================                |  78%  |                                                                              |========================================================              |  80%  |                                                                              |=========================================================             |  82%  |                                                                              |===========================================================           |  84%  |                                                                              |============================================================          |  86%  |                                                                              |=============================================================         |  88%  |                                                                              |===============================================================       |  90%  |                                                                              |================================================================      |  92%  |                                                                              |==================================================================    |  94%  |                                                                              |===================================================================   |  96%  |                                                                              |===================================================================== |  98%  |                                                                              |======================================================================| 100%</code></pre>
+<p>L’intérêt de cette dernière fonction est qu’elle permet d’obtenir directement les analyses séquentielles grâce à la fonction <code>plot</code>.</p>
+<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">bf.exp</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="bookdown-demo_files/figure-html/tdemo6-1.png" width="672"></div>
+<p>et de robustesse avec la fonction <code>bfRobustness</code>.</p>
+<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">bf.robust</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/changeofevidence/man/bfRobustness.html">bfRobustness</a></span><span class="op">(</span><span class="va">bf.exp</span>,prior.loc <span class="op">=</span><span class="fl">0</span> <span class="op">)</span></span></code></pre></div>
+<pre><code>## Highest BF = 886969.2 with prior: Cauchy(0, 1)</code></pre>
+<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">bf.robust</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="bookdown-demo_files/figure-html/tdemo7-1.png" width="672"></div>
+<p>Il est également possible d’adapter le code que j’ai utilisé dans le chapitre sur le <a href="le-facteur-de-bayes.html#le-facteur-de-bayes">Facteur de Bayes</a></p>
+</div>
+<div id="avec-jamovi" class="section level4" number="13.1.1.2">
+<h4>
+<span class="header-section-number">13.1.1.2</span> Avec Jamovi<a class="anchor" aria-label="anchor" href="#avec-jamovi"><i class="fas fa-link"></i></a>
+</h4>
+<p>Pour faire un <em>t</em> de Student avec Jamovi, on clique sur le menu <em>t</em> et on choisit le type de <em>t</em> de l’approche bayésienne qui nous convient.</p>
+<div class="inline-figure"><img src="Jamovi/t1.png" width="360"></div>
+<p>On choisit les variables de façon similaire à ce qui est fait pour l’approche de Neyman-Pearson.</p>
+<div class="inline-figure">
+<img src="Jamovi/t2.png" width="356">
+On coche les cases qui nous permettront d’avoir les analyses séquentielles et les analyses de robustesse.</div>
+<div class="inline-figure"><img src="Jamovi/t3.png" width="340"></div>
+<p>Et on fixe la valeur pour la distribution a priori.</p>
+<div class="inline-figure"><img src="Jamovi/t4.png" width="358"></div>
+<p>Pour les résultats, ils sont théoriquement identiques (ou très proches à ceux présentés dans la section R).</p>
+</div>
+</div>
+<div id="la-corrélation" class="section level3 panelset" number="13.1.2">
+<h3>
+<span class="header-section-number">13.1.2</span> La corrélation<a class="anchor" aria-label="anchor" href="#la-corr%C3%A9lation"><i class="fas fa-link"></i></a>
+</h3>
+<p>Kainafets et Relfihcs (5022) se sont intéressés à l’impact de la télévision sur les stéréotypes. Ils émettent l’hypothèse selon laquelle un programme de télévision peut avoir un impact prosocial. Pour tester leur hypothèse, ils proposent à leurs participants de regarder une fiction dans laquelle des personnes issues de différentes minorités voyagent dans l’espace à la recherche d’une planète qui permettrait à l’espèce humaine de survivre. Durant la fiction, plusieurs difficultés s’opposent à cet objectif. Les protagonistes arrivent néanmoins à résoudre ces problèmes, mais uniquement lorsque les différentes minorités agissent de concert avec le groupe majoritaire. Après la fiction, les chercheurs demandent aux participants de choisir parmi 50 descriptions de personnes (dont la moitié sont issues de minorités et l’autre moitié du groupe majoritaire), celles avec lesquelles elles voudraient collaborer pour construire une maison. Sur chacune des descriptions, une photo de la personne décrite était présentée en plus des habiletés et des diplômes obtenus. Après avoir décidé quelles étaient les personnes avec lesquelles elles aimeraient collaborer pour la construction d’une maison, les participants étaient invités à évaluer sur une échelle de 1 à 7 (de pas du tout probable à très probable), la plausibilité de la fiction présentée dans la première phase de l’étude. L’hypothèse des chercheurs est que les personnes qui trouveront la fiction plausible seront plus enclines à choisir des collaborateurs issus de minorités pour la construction de la maison. En plus de l’évaluation de la plausibilité, les chercheurs ont recueilli le nombre de personnes issues de minorités dans le choix des collaborateurs choisis par les 35 participants qui ont pris part à l’étude.</p>
+<p>Les données sont présentées sur la feuille plausibilite.
+Pour cet exercice, nous illustrerons comment obtenir une distribution a posteriori. Le raisonnement vaut également pour les autres fonctions décrites dans ce tutoriel.</p>
+<div id="avec-r-1" class="section level4" number="13.1.2.1">
+<h4>
+<span class="header-section-number">13.1.2.1</span> Avec R<a class="anchor" aria-label="anchor" href="#avec-r-1"><i class="fas fa-link"></i></a>
+</h4>
+<p>On commence par importer les données</p>
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">plausib</span><span class="op">&lt;-</span><span class="fu">read_xlsx</span><span class="op">(</span><span class="st">"./Exercices/Demo.xlsx"</span>, sheet<span class="op">=</span><span class="st">"plausibilite"</span><span class="op">)</span></span></code></pre></div>
+<p>On vérifie la structure des données.</p>
+<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">plausib</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## tibble [35 × 2] (S3: tbl_df/tbl/data.frame)
+##  $ Plaus : num [1:35] 6 5 3 3 5 1 3 6 6 3 ...
+##  $ collab: num [1:35] 30 28 17 34 25 10 16 32 31 17 ...</code></pre>
+<p>On peut se faire une représentation graphique pour avoir une idée de l’existe ou non d’une corrélation et éventuellement identifier des valeurs influentes.</p>
+<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">plausib</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Plaus</span> , y <span class="op">=</span><span class="va">collab</span><span class="op">)</span> <span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">stat_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>,</span>
+<span>              formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span>,</span>
+<span>              geom <span class="op">=</span> <span class="st">"smooth"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="bookdown-demo_files/figure-html/corrdemo2-1.png" width="672"></div>
+<p>on fait l’analyse l’analyse avec la fonction <code>correlationBF</code> pour laquelle les arguments sont expliqués dans le code.</p>
+<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">corr.out</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/correlationBF.html">correlationBF</a></span><span class="op">(</span></span>
+<span>  <span class="co"># la variable sur l'ordonnée</span></span>
+<span>  y<span class="op">=</span><span class="va">plausib</span><span class="op">$</span><span class="va">Plaus</span>,</span>
+<span>  <span class="co"># la variable en abcisse</span></span>
+<span>  x<span class="op">=</span><span class="va">plausib</span><span class="op">$</span><span class="va">collab</span>,</span>
+<span>  <span class="co"># la distribution a priori</span></span>
+<span>  rscale <span class="op">=</span> <span class="st">"medium"</span>,</span>
+<span>  <span class="co"># les limites inférieures et supérieures </span></span>
+<span>  <span class="co"># d'un intervalle à l'intérieur duquel </span></span>
+<span>  <span class="co"># on pense que se trouve la corrélation </span></span>
+<span>  nullInterval <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="co"># Faut il calculer la distribution a posteriori</span></span>
+<span>  posterior <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
+<span><span class="va">corr.out</span></span></code></pre></div>
+<pre><code>## Bayes factor analysis
+## --------------
+## [1] Alt., r=0.333 : 1477275 ±0%
+## 
+## Against denominator:
+##   Null, rho = 0 
+## ---
+## Bayes factor type: BFcorrelation, Jeffreys-beta*</code></pre>
+<p>On peut à présent calculer l’intervalle de crédibilité.
+Deux méthodes peuvent être utilisées pour atteindre cet objectif.</p>
+<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># calcul de la distribution a posteriori</span></span>
+<span><span class="va">post</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/posterior-methods.html">posterior</a></span><span class="op">(</span><span class="va">corr.out</span>, iterations <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">post</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="bookdown-demo_files/figure-html/corrdemo4-1.png" width="672"></div>
+<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">post</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Iterations = 1:1000
+## Thinning interval = 1 
+## Number of chains = 1 
+## Sample size per chain = 1000 
+## 
+## 1. Empirical mean and standard deviation for each variable,
+##    plus standard error of the mean:
+## 
+##        Mean      SD Naive SE Time-series SE
+## rho  0.7385 0.08045 0.002544       0.007256
+## zeta 0.9706 0.17905 0.005662       0.014835
+## 
+## 2. Quantiles for each variable:
+## 
+##        2.5%    25%   50%    75%  97.5%
+## rho  0.5429 0.6888 0.750 0.8005 0.8622
+## zeta 0.6083 0.8456 0.973 1.1000 1.3020</code></pre>
+<p>On peut également utiliser le package <em>bayestestR</em> <span class="citation">(<a href="references.html#ref-bayestestR">Makowski et al., 2019</a>)</span></p>
+<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/bayestestR/">bayestestR</a></span><span class="op">)</span></span>
+<span><span class="va">ci_hdi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://easystats.github.io/bayestestR/reference/ci.html">ci</a></span><span class="op">(</span><span class="va">post</span>, method <span class="op">=</span> <span class="st">"HDI"</span><span class="op">)</span></span>
+<span><span class="va">ci_hdi</span></span></code></pre></div>
+<pre><code>## Highest Density Interval
+## 
+## Parameter |      95% HDI
+## ------------------------
+## rho       | [0.60, 0.89]
+## zeta      | [0.60, 1.26]</code></pre>
+<p>Il est tout à fait normal que les résultats ne soient pas identiques, les méthodes pour les calculer peuvent être sensiblement différentes et parce que les résultats sont obtenus en utilisant un chaîne de Monte-Carlo, c’est-à-dire une simulation.</p>
+<p>Il est à noter qu’on peut adapter le code présenté dans la section relative aux analyses de robustesse pour l’appliquer à ce contexte.</p>
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#les 4 dernières valeurs sont les valeurs "réduite", </span></span>
+<span><span class="co">#"moyenne", "large" et "ultra large"</span></span>
+<span><span class="va">rs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fl">.05</span>, to <span class="op">=</span><span class="fl">2</span>, by <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>, </span>
+<span>        <span class="fl">1</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">27</span><span class="op">)</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># on veut pouvoir les calculer tous en même temps. </span></span>
+<span><span class="co"># pour cela, on va utiliser la fonction sapply qui va </span></span>
+<span><span class="co"># calculer le Bayes Factor pour tous les priors qu'on va lui donner (stockés dans rs)</span></span>
+<span><span class="va">bfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">rs</span>, </span>
+<span>              <span class="kw">function</span><span class="op">(</span><span class="va">r</span><span class="op">)</span> <span class="op">{</span> <span class="co"># on crée un fonction spécifiquement pour notre propos</span></span>
+<span>                <span class="co"># on utilise exactement la même fonction que celle qu'on utilise pour un seul BF</span></span>
+<span>                <span class="co"># mais au lieu de donner une valeur au rscale, on lui donne l'argument r</span></span>
+<span>                <span class="co"># qui seront fourni par tous les rs              </span></span>
+<span>                <span class="va">bf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/correlationBF.html">correlationBF</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">plausib</span><span class="op">$</span><span class="va">collab</span>,</span>
+<span>                                    x<span class="op">=</span><span class="va">plausib</span><span class="op">$</span><span class="va">Plaus</span>,</span>
+<span>                                    rscale <span class="op">=</span> <span class="va">r</span>,</span>
+<span>                                    nullInterval <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>                                    posterior <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
+<span>                <span class="co"># on extrait les facteurs de Bayes</span></span>
+<span>                <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/extractBF-methods.html">extractBF</a></span><span class="op">(</span><span class="va">bf</span><span class="op">)</span><span class="op">$</span><span class="va">bf</span></span>
+<span>              <span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># on crée un data.frame pour faire le graphique </span></span>
+<span><span class="va">robust</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">rs</span>, <span class="va">bfs</span><span class="op">)</span> </span>
+<span><span class="co"># on réalise le graphique </span></span>
+<span><span class="va">robust</span><span class="op">$</span><span class="va">bfs</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">robust</span><span class="op">$</span><span class="va">bfs</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">robust</span><span class="op">$</span><span class="va">rs</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">robust</span><span class="op">$</span><span class="va">rs</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co"># on fait la ligne qui touche tous les points</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">robust</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">rs</span>, y<span class="op">=</span><span class="va">bfs</span><span class="op">)</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span> </span>
+<span>  <span class="co"># on donne le titre à l'axe des x</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Choix de la distribution a priori"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="co"># on donne le titre à l'axe des y</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Valeur du facteur de Bayes"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="co"># on met en valeur les points des priors prédéfinis dans BayesFactor</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">robust</span><span class="op">[</span><span class="fl">41</span><span class="op">:</span><span class="fl">44</span>,<span class="op">]</span>, colour<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="co"># On indique sur le graphique à quel prior chaque point correspond *</span></span>
+<span>  <span class="co"># en faisant un petit décalage afin d'éviter une superposition avec le point</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, label <span class="op">=</span> <span class="va">robust</span><span class="op">$</span><span class="va">rs</span><span class="op">[</span><span class="fl">41</span><span class="op">:</span><span class="fl">44</span><span class="op">]</span>, </span>
+<span>           x <span class="op">=</span> <span class="va">robust</span><span class="op">$</span><span class="va">rs</span><span class="op">[</span><span class="fl">41</span><span class="op">:</span><span class="fl">44</span><span class="op">]</span><span class="op">+</span><span class="fl">0.2</span>,</span>
+<span>           y <span class="op">=</span> <span class="va">robust</span><span class="op">$</span><span class="va">bfs</span><span class="op">[</span><span class="fl">41</span><span class="op">:</span><span class="fl">44</span><span class="op">]</span><span class="op">+</span><span class="fl">0.2</span>, colour <span class="op">=</span><span class="st">"blue"</span>, check_overlap <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="bookdown-demo_files/figure-html/corrdemo6-1.png" width="672"></div>
+<p>Notez qu’ici, utiliser une échelle logarithmique sur le graphique aurait pu faire sens.</p>
+</div>
+<div id="avec-jamovi-1" class="section level4" number="13.1.2.2">
+<h4>
+<span class="header-section-number">13.1.2.2</span> Avec Jamovi<a class="anchor" aria-label="anchor" href="#avec-jamovi-1"><i class="fas fa-link"></i></a>
+</h4>
+<p>On commence par choisir le menu corrélation bayésienne par paire.</p>
+<div class="inline-figure"><img src="Jamovi/corr1.png" width="263"></div>
+<p>On indique les variables d’intérêt.</p>
+<div class="inline-figure"><img src="Jamovi/corr2.png" width="365"></div>
+<p>On coche tous les options en n’oubliant pas de préciser la distribution a priori. Dans le package <em>BayesFactor</em>, une distrubtion étroite vaut <span class="math inline">\(1/\sqrt{27}\)</span>, une moyenne vaut 1/3, une large vaut <span class="math inline">\(1/\sqrt{3}\)</span> et une ultra large vaut 1. Pour répliquer les résultats, il faut une distribution de 1/3.</p>
+<div class="inline-figure"><img src="Jamovi/corr3.png" width="326"></div>
+</div>
+</div>
+<div id="la-régression" class="section level3 panelset" number="13.1.3">
+<h3>
+<span class="header-section-number">13.1.3</span> La régression<a class="anchor" aria-label="anchor" href="#la-r%C3%A9gression"><i class="fas fa-link"></i></a>
+</h3>
+<p>Faire une régression sous l’angle bayésien ne présente pas de réelle particularité par rapport au fait de faire une corrélation ou un test <em>t</em>.</p>
+<p>Des chercheurs s’intéressent au niveau de détresse émotionnelle et formulent l’hypothèse selon laquelle la détresse serait inversement reliée à l’adoption de stratégies de coping. Ces chercheurs demandent à leurs participants d’évaluer sur une échelle de 1 (pas du tout) à 7 (en totale détresse) leur niveau de détresse émotionnelle. Ils leur demandent ensuite d’expliquer les comportements qu’ils adoptent lorsqu’ils ne se sentent pas bien. Les chercheurs attendent 30 réponses. Une fois, les réponses récoltées, ils comptent le nombre de comportements de coping. Par ailleurs, les chercheurs ont également utilisé une échelle d’anxiété sur 50 et ont demandé l’âge des participants.</p>
+<div id="avec-r-2" class="section level4" number="13.1.3.1">
+<h4>
+<span class="header-section-number">13.1.3.1</span> Avec R<a class="anchor" aria-label="anchor" href="#avec-r-2"><i class="fas fa-link"></i></a>
+</h4>
+<p>On commence par importer les données</p>
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">detresse</span><span class="op">&lt;-</span><span class="fu">read_xlsx</span><span class="op">(</span><span class="st">"./Exercices/Demo.xlsx"</span>, sheet<span class="op">=</span><span class="st">"detresse"</span><span class="op">)</span></span></code></pre></div>
+<p>On vérifie la structure des données.</p>
+<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">detresse</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## tibble [69 × 3] (S3: tbl_df/tbl/data.frame)
+##  $ detresse: num [1:69] 4 5 3 4 5 3 4 4 7 1 ...
+##  $ coping  : num [1:69] 7 6 10 7 8 9 4 5 27 11 ...
+##  $ age     : num [1:69] 70 56 76 75 84 54 55 54 66 59 ...</code></pre>
+<p>On peut se faire une représentation graphique pour avoir une idée de l’existe ou non d’une corrélation et éventuellement identifier des valeurs influentes. Le package <em>olsrr</em> permet d’obtenir des graphiques des effets conditionnels dans les modèles linéaires fréquentistes. La représentation graphique n’étant pas dépendante de l’approche, on peut l’utiliser sans souci.</p>
+<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://olsrr.rsquaredacademy.com/">olsrr</a></span><span class="op">)</span></span>
+<span><span class="va">model</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">detresse</span><span class="op">~</span><span class="va">coping</span><span class="op">+</span><span class="va">age</span>, <span class="va">detresse</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://olsrr.rsquaredacademy.com/reference/ols_plot_added_variable.html">ols_plot_added_variable</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="bookdown-demo_files/figure-html/lm3-1.png" width="672"></div>
+<p>on fait l’analyse l’analyse avec la fonction <code>lmBF</code> pour laquelle les arguments sont expliqués dans le code.</p>
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">lm.out</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/lmBF.html">lmBF</a></span><span class="op">(</span></span>
+<span>    <span class="co"># on précise le modèle du type VD ~VI1+VI2</span></span>
+<span>    <span class="co"># on peut mettre des interactions VD ~VI1+VI2+VI1:VI2</span></span>
+<span>     formula <span class="op">=</span> <span class="va">detresse</span><span class="op">~</span><span class="va">coping</span><span class="op">+</span><span class="va">age</span>,</span>
+<span>     <span class="co"># on précise le jeu de données </span></span>
+<span>     data <span class="op">=</span> <span class="va">detresse</span>,</span>
+<span>     <span class="co"># on peut préciser la variable aléatoire</span></span>
+<span>     <span class="co"># sous forme de caractère comme "ID"</span></span>
+<span>    whichRandom <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    <span class="co"># on peut préciser les ditributions pour les effets d'intérêts</span></span>
+<span>    rscaleFixed <span class="op">=</span> <span class="st">"medium"</span>,</span>
+<span>    <span class="co"># et contrôler la distribution de la variable aléatoire</span></span>
+<span>    <span class="co"># on peut toujours laisser la valeur par défaut</span></span>
+<span>    rscaleRandom <span class="op">=</span> <span class="st">"nuisance"</span>,</span>
+<span>    <span class="co"># il s'agit du prior sur la pente</span></span>
+<span>    <span class="co"># mais la différence par rapport à rscaleFixed n'est pas claire. </span></span>
+<span>    <span class="co"># il est possible que rscaleFixed s'applique à tout</span></span>
+<span>    <span class="co"># et que rscalecont et rscaleRandom permet de dissocier les deux</span></span>
+<span>    rscaleCont <span class="op">=</span> <span class="st">"medium"</span>,</span>
+<span>    <span class="co"># il est possible de préciser des prior pour chaque effet</span></span>
+<span>    <span class="co"># par exemple c(coping = 0.5, age =0.3)</span></span>
+<span>    <span class="co"># on ne précise pas ici</span></span>
+<span>    rscaleEffects <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    <span class="co"># la distribution a posteriori doit elle être calculée. </span></span>
+<span>    posterior <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  </span>
+<span>  </span>
+<span>  <span class="va">lm.out</span></span></code></pre></div>
+<pre><code>## Bayes factor analysis
+## --------------
+## [1] coping + age : 5902276 ±0%
+## 
+## Against denominator:
+##   Intercept only 
+## ---
+## Bayes factor type: BFlinearModel, JZS</code></pre>
+<p>On observe que nous avons le facteur de Bayes pour l’ensemble des effets du modèle. Pour avoir les effets séparément et voir dans quelle mesure une variable apporte quelque chose au modèle, il faut modéliser chacun des modèles. Par exemple, quand on veut savoir si l’âge apporte quelque chose de plus que le coping, on peut faire :</p>
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">lm.out1</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/lmBF.html">lmBF</a></span><span class="op">(</span></span>
+<span>     formula <span class="op">=</span> <span class="va">detresse</span><span class="op">~</span><span class="va">coping</span>,</span>
+<span>     data <span class="op">=</span> <span class="va">detresse</span>,</span>
+<span>    whichRandom <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    rscaleFixed <span class="op">=</span> <span class="st">"medium"</span>,</span>
+<span>    rscaleRandom <span class="op">=</span> <span class="st">"nuisance"</span>,</span>
+<span>    rscaleCont <span class="op">=</span> <span class="st">"medium"</span>,</span>
+<span>    rscaleEffects <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    posterior <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="va">lm.out2</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/lmBF.html">lmBF</a></span><span class="op">(</span></span>
+<span>     formula <span class="op">=</span> <span class="va">detresse</span><span class="op">~</span><span class="va">coping</span><span class="op">+</span><span class="va">age</span>,</span>
+<span>     data <span class="op">=</span> <span class="va">detresse</span>,</span>
+<span>    whichRandom <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    rscaleFixed <span class="op">=</span> <span class="st">"medium"</span>,</span>
+<span>    rscaleRandom <span class="op">=</span> <span class="st">"nuisance"</span>,</span>
+<span>    rscaleCont <span class="op">=</span> <span class="st">"medium"</span>,</span>
+<span>    rscaleEffects <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    posterior <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">lm.out2</span><span class="op">/</span><span class="va">lm.out1</span></span></code></pre></div>
+<pre><code>## Bayes factor analysis
+## --------------
+## [1] coping + age : 448076.1 ±0%
+## 
+## Against denominator:
+##   detresse ~ coping 
+## ---
+## Bayes factor type: BFlinearModel, JZS</code></pre>
+<p>En l’occurrence, le facteur de Bayes est très largement supérieur à 100, on sait que l’âge a un apport important au modèle.</p>
+</div>
+<div id="avec-jamovi-2" class="section level4" number="13.1.3.2">
+<h4>
+<span class="header-section-number">13.1.3.2</span> Avec Jamovi<a class="anchor" aria-label="anchor" href="#avec-jamovi-2"><i class="fas fa-link"></i></a>
+</h4>
+<p>Dans Jamovi, on peut faire des modèles linéaires avec l’approche bayésienne en cliquant sur Bayesian Linear Regression.</p>
+<div class="inline-figure"><img src="Jamovi/reg1.png" width="154"></div>
+<p>Il permet de faire des modèles simples (sans interaction) en entrant les variables du côté de la variable dépendante et des covariables.</p>
+<div class="inline-figure"><img src="Jamovi/reg3.png" width="210"></div>
+<p>Les résultats permettent de comparer le facteur de Bayes d’un modèle donné par rapport au modèle où il n’y a que la variable aléatoire (non spécifiée) ou par rapport au meilleur modèle. En réalité, dans l’approche bayésienne, on veut pouvoir savoir si une variable particulière apporte quelque chose par rapport à des variables qu’on impose dans le modèle. Il faut donc pouvoir faire le rapport des facteurs de Bayes (ce qui donne également un facteur de Bayes) mais ce n’est pas possible dans Jamovi. Jamovi propose de montrer les 10 meilleurs modèles pour ne pa montrer tous les modèles car le nombre de modèles augmente de manière exponentielle avec le nombre de variables (en suivant la règle <span class="math inline">\(n^2-1\)</span> où n est le nombre de variables)</p>
+<div class="inline-figure">
+<img src="Jamovi/reg2.png" width="331">
+Il y a d’autres options disponibles mais elles semblent être encore en développement dans ma version (2.6.44) et ne fournissent pas de résultats.</div>
+</div>
+</div>
+<div id="lanalyse-de-variance" class="section level3 panelset" number="13.1.4">
+<h3>
+<span class="header-section-number">13.1.4</span> L’analyse de variance<a class="anchor" aria-label="anchor" href="#lanalyse-de-variance"><i class="fas fa-link"></i></a>
+</h3>
+<p>Stefaniak et al. <span class="citation">(<a href="references.html#ref-STEFANIAK2008">Stefaniak et al., 2008</a>)</span> se sont intéressés aux mécanismes d’apprentissage implicite. Ils ont administré à leurs participants une tâche de temps de réaction sériel. Dans cette tâche, on demande aux participants de répondre le plus rapidement et le plus précisément possible aux stimuli qui apparaissent à différentes localisation sur l’écran. Les stimuli n’apparaissent pas de manière aléatoire mais suivent, à l’insu des participants, une séquence. Cette séquence suit une structure probabilité (85% de régularités et 15% d’irrégularités) La tâche est composée de 15 blocs dans lesquels la séquence est présentée à 8 reprises. Les blocs 1 à 12 sont des blocs d’apprentissage. Le bloc 13 est un bloc dans lequel une autre séquence que la séquence d’apprentissage est utilisée et le bloc 14 est à nouveau un bloc où la séquence d’apprentissage initiale est utilisée. L’apprentissage se manifeste par des temps de réaction de plus en plus courts entre les blocs 1 à 12 et un ralentissement de la vitesse de réponse pour le bloc 13.
+Leur objectif était de voir si une connaissance explicite de la séquence améliorait l’apprentissage. Ils ont donc comparé l’apprentissage pour un groupe en condition incidente, un groupe dont les connaissances se limitait à la séquence régulière et un groupe qui avait non seulement la connaissance de la séquence régulière mais également de la manière dont les irrégularités étaient construites.</p>
+<div id="avec-r-3" class="section level4" number="13.1.4.1">
+<h4>
+<span class="header-section-number">13.1.4.1</span> Avec R<a class="anchor" aria-label="anchor" href="#avec-r-3"><i class="fas fa-link"></i></a>
+</h4>
+<p>Nous n’allons pas reprendre les étapes de bases et les réexpliquer. Ce sont toujours les mêmes. Nous focaliserons sur la préparation du jeu de données et sur la réalisation de l’analyse.</p>
+<p>Tout d’abord, il faut préparer les données car, pour des mesures répétées, R a besoin d’un format long et non d’un format large<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;je présuppose que vous savez ce que c’est si vous utilisez régulièrement R.&lt;/p&gt;"><sup>14</sup></a>. Pour ce faire, on va sélectionner les variables d’intérêt avec le package <em>dplyr</em> <span class="citation">(<a href="references.html#ref-dplyr">Wickham et al., 2023</a>)</span> et sa fonctioin <code>select</code> et utiliser la fonction <code>melt</code> du package <em>reshape2</em> <span class="citation">(<a href="references.html#ref-reshape">Wickham, 2007</a>)</span>.</p>
+<p><strong>important</strong> : comme plusieurs fonction dans R s’appelle ‘select’, il peut être bon de préciser dans quelle package il faut aller chercher cette fonction entre tapant le nom du package suivi de deux fois deux points <code><a href="https://dplyr.tidyverse.org/reference/select.html">dplyr::select</a></code>.</p>
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/reshape">reshape2</a></span><span class="op">)</span></span>
+<span><span class="va">AI2</span><span class="op">&lt;-</span><span class="va">AI</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">TYPE</span>, <span class="va">BLOC1</span>, <span class="va">BLOC12</span>, <span class="va">BLOC13</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">AI.long</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/reshape2/man/melt.html">melt</a></span><span class="op">(</span><span class="va">AI2</span>,id.vars<span class="op">=</span><span class="st">"TYPE"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">AI.long</span><span class="op">)</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"TYPE"</span>, <span class="st">"BLOC"</span>, <span class="st">"Temps"</span><span class="op">)</span></span>
+<span><span class="va">AI.long</span><span class="op">$</span><span class="va">TYPE</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">AI.long</span><span class="op">$</span><span class="va">TYPE</span><span class="op">)</span></span></code></pre></div>
+<p>Il est souvent bon d’être explicite sur la variable aléatoire quand on fait des anovas, en particulier des anovas à mesure répétées. Nous allons donc rajouter une variable identifiant les participants.</p>
+<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">AI.long</span><span class="op">$</span><span class="va">ID</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"p"</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">60</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">AI.long</span><span class="op">$</span><span class="va">ID</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">AI.long</span><span class="op">$</span><span class="va">ID</span><span class="op">)</span></span></code></pre></div>
+<p>On peut à présent réaliser l’analyse</p>
+<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">aov.out</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/generalTestBF.html">generalTestBF</a></span><span class="op">(</span><span class="co"># on précise le modèle</span></span>
+<span>   <span class="co"># remarquez la présence de l'identifiant dans le modèle</span></span>
+<span>   <span class="co"># R en a besoin pour identifier que c'est une mesure répétée </span></span>
+<span>                        <span class="va">Temps</span> <span class="op">~</span> <span class="va">TYPE</span><span class="op">*</span><span class="va">BLOC</span> <span class="op">+</span> <span class="va">ID</span>, </span>
+<span>                        data <span class="op">=</span> <span class="va">AI.long</span>,</span>
+<span>                        <span class="co"># on explicite ici que ID est le facteur aléatoire</span></span>
+<span>                        whichRandom <span class="op">=</span> <span class="st">"ID"</span>,</span>
+<span>                        <span class="co"># pour éviter de multiplier les modèle calculés</span></span>
+<span>                        <span class="co"># on va conserver la variable aléatoire dans tous</span></span>
+<span>                        <span class="co"># les modèles</span></span>
+<span>                        <span class="co"># cela évite d'avoir VD~ID, VD~VI1, VD~ID+VI1</span></span>
+<span>                        </span>
+<span>                        neverExclude<span class="op">=</span><span class="st">"ID"</span><span class="op">)</span></span>
+<span><span class="va">aov.out</span></span></code></pre></div>
+<pre><code>## Bayes factor analysis
+## --------------
+## [1] TYPE + ID                    : 62469120306                 ±0.71%
+## [2] BLOC + ID                    : 867788093218138308002666860 ±0.95%
+## [3] TYPE + BLOC + ID             : 647737570786917884260024882 ±3.79%
+## [4] TYPE + BLOC + TYPE:BLOC + ID : 247996970907350544346868868 ±1.5%
+## [5] ID                           : 102575400468                ±0%
+## 
+## Against denominator:
+##   Intercept only 
+## ---
+## Bayes factor type: BFlinearModel, JZS</code></pre>
+<p>Pour savoir si l’effet d’interaction apporte quelque chose au modèle, on compare le modèle avec l’interaction (modèle 4) avec le modèle le plus proche sans l’interaction (modèle 3)</p>
+<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">aov.out</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">/</span><span class="va">aov.out</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span></code></pre></div>
+<pre><code>## Bayes factor analysis
+## --------------
+## [1] TYPE + BLOC + TYPE:BLOC + ID : 0.3828664 ±4.08%
+## 
+## Against denominator:
+##   Temps ~ TYPE + BLOC + ID 
+## ---
+## Bayes factor type: BFlinearModel, JZS</code></pre>
+<p>Ici, l’interaction tend plutôt à favoriser l’hypothèse nulle.</p>
+<p>Il est à noter qu’il est possible de contrôler les distributions <em>a priori</em> exactement de la même manière que celle qui a été décrite pour <code>lmBF</code></p>
+<p>Pour réaliser les contrastes sous un angle bayésien, vous pouvez réaliser une anova dans une perspective fréquentiste, faire les contrastes et utiliser la valeur du <em>t</em> du contraste avec l fonction <code>ttest.tstat</code>. Si je voulais comparer mon groupe incident aux deux autres groupes et que la valeur du contraste valeur 1.2, on utiliserait la fonction ainsi :</p>
+<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/ttest.tstat.html">ttest.tstat</a></span><span class="op">(</span><span class="fl">1.2</span>, n1 <span class="op">=</span><span class="fl">20</span>, n2 <span class="op">=</span> <span class="fl">40</span>, rscale <span class="op">=</span> <span class="st">"medium"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## $bf
+## [1] -0.696399
+## 
+## $properror
+## [1] 0.00007990923
+## 
+## $method
+## [1] "quadrature"</code></pre>
+</div>
+<div id="avec-jamovi-3" class="section level4" number="13.1.4.2">
+<h4>
+<span class="header-section-number">13.1.4.2</span> Avec Jamovi<a class="anchor" aria-label="anchor" href="#avec-jamovi-3"><i class="fas fa-link"></i></a>
+</h4>
+<p>Pour faire une anova bayésienne mixte, il faut choisir le module anova à meure répétée bayésienne.</p>
+<div class="inline-figure"><img src="Jamovi/aov1.png" width="198"></div>
+<p>Il faut préciser les nom des modalités à mesure répétées dans la section ‘Repeated Measures Factors’ et placer dans la section ‘Repeated Measures Cells’ les variables de votre jeu de données correspondant à ce l’ordre ‘Repeated Measures Factors’ et vous obtenez vos résultats.</p>
+<div class="inline-figure"><img src="Jamovi/aov2.png" width="356"></div>
+<p>Pour terminer, vous pouvez obtenir les comparaison 2 à 2 en cliquant sur ‘post-hoc test’.</p>
+<div class="inline-figure"><img src="Jamovi/aov3.png" width="362"></div>
+<p>Pour les plus avertis, il est possible de contrôler la distribution a priori en cliquant sur “options avancées”.</p>
+</div>
+</div>
+</div>
+<div id="exercice-2" class="section level2" number="13.2">
+<h2>
+<span class="header-section-number">13.2</span> Exercice 2<a class="anchor" aria-label="anchor" href="#exercice-2"><i class="fas fa-link"></i></a>
+</h2>
+<p>Priolo et ses collaborateur <span class="citation">(<a href="references.html#ref-Priolo2023">Priolo et al., 2023</a>)</span> ont cherché à repliqué les effets des nudges sur l’efficacité comportementale et l’acceptabilité dans le cadre d’une expérience de terrain en contexte naturel. Le nudge étudié consiste à définir par défaut l’option « zéro sucre » dans les distributeurs de boissons chaudes d’une université française. Deux campus ont été comparés : le campus A (option par défaut : 0 sucre) et le campus B (option par défaut : 3 sucres). L’efficacité du nudge a été mesurée en observant la quantité de sucre effectivement choisie par les participants, et son acceptabilité a été évaluée au moyen d’un questionnaire.</p>
+<p>Les données (généreusement mises à disposition par Daniel Priolo) sont disponibles dans le fichier Nudge.</p>
+<p>Voici la description des variables (d’intérêt)</p>
+<ul>
+<li>Participants : Identifiant du participant</li>
+<li>Campus : Campus A (qui a 0 sucres par défaut) et campus B (3 sucrus pas défaut)</li>
+<li>Gender : genre du / de la participant·e</li>
+<li>Age : age du du / de la participant·e</li>
+<li>CSP : catégorie socioprofessionnelle</li>
+<li>Discipline_Cat : UFR de l’étudiant·e</li>
+<li>Discipline : formation de l’étudiant·e</li>
+<li>Saw_Sugar : est-ce que la personne a vu ou non la valeur en sucre par défaut (0 =non, 1 = oui)</li>
+<li>UC = combien de sucres met la personne d’habitude</li>
+<li>OC = combien de sucres la personne a mis</li>
+<li>OC_B = a-t-elle mis du sucre ? (0 = non, 1 = oui)</li>
+<li>UC_B = met-elle du sucre d’habitude (0 = non, 1 = oui)</li>
+<li>MOY_ACC = acceptabilité d’être nudgé - d’avoir une option par défaut pour réduire la consommation de sucre</li>
+<li>MOY_FORCE = A quel point est-ce que la personne était favorable à l’idée de réduire sa consommation en sucre</li>
+</ul>
+<p>Les autres variables ne seront pas utilisées.</p>
+<p>Les données sont disponibles <a href="https://osf.io/hjdb9/files/osfstorage/6865505dad51f6ef597eab45">ici</a>.</p>
+<p>Importer les données.</p>
+<p>Vérifiez si l’effet du nudge a fonction en montrant que les étudiant·e du campus A a consommé moins de sucre que ceux du campus B.</p>
+<p>Pour mener votre analyse :
+- identifier l’analyse que vous allez faire<br>
+- établissez la distribution a priori en vous appuyant sur les données de <span class="citation">(<a href="references.html#ref-Mertens2021">Mertens et al., 2021</a>)</span> disponibles <a href="https://doi.org/10.1073/pnas.2107346118">ici</a>
+- Interpétez les résultats
+- Vérifiez que vos résultats sont robustes à différents prior et qu’ils ne sont pas dépendants de quelques observations seulement.</p>
+<details><summary>
+Cliquez pour la solution
+</summary><p>Puisque dans la méta-analyse, la taille d’effet est 0.43, nous allons fixé le prior à “medium”.<br>
+L’analyse qu’il faut réaliser est un test <em>t</em> de Student.</p>
+<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org">readxl</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://richarddmorey.github.io/BayesFactor/">BayesFactor</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">changeofevidence</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/bayestestR/">bayestestR</a></span><span class="op">)</span></span>
+<span><span class="va">priolo</span><span class="op">&lt;-</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_xlsx</a></span><span class="op">(</span><span class="st">"./Exercices/Nudge.xlsx"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">priolo</span> <span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">priolo</span><span class="op">)</span></span>
+<span><span class="va">t.out</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/ttestBF.html">ttestBF</a></span><span class="op">(</span>formula <span class="op">=</span><span class="va">OC</span> <span class="op">~</span><span class="va">Campus</span>, </span>
+<span>               data<span class="op">=</span><span class="va">priolo</span>, paired <span class="op">=</span><span class="cn">F</span>, </span>
+<span>               rscale <span class="op">=</span> <span class="fl">.707</span><span class="op">)</span> <span class="co"># prior à .707</span></span>
+<span><span class="va">t.out</span></span></code></pre></div>
+<pre><code>## Bayes factor analysis
+## --------------
+## [1] Alt., r=0.707 : 23796524 ±0%
+## 
+## Against denominator:
+##   Null, mu1-mu2 = 0 
+## ---
+## Bayes factor type: BFindepSample, JZS</code></pre>
+<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">bf.exp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/changeofevidence/man/bfttest.html">bfttest</a></span><span class="op">(</span><span class="va">OC</span> <span class="op">~</span><span class="va">Campus</span>, </span>
+<span>                  data<span class="op">=</span> <span class="va">priolo</span>, </span>
+<span>                  alternative <span class="op">=</span> <span class="st">"two.sided"</span>, </span>
+<span>                  prior.loc <span class="op">=</span> <span class="fl">0</span>, </span>
+<span>                  prior.r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##   |                                                                              |                                                                      |   0%  |                                                                              |                                                                      |   1%  |                                                                              |=                                                                     |   1%  |                                                                              |==                                                                    |   2%  |                                                                              |==                                                                    |   3%  |                                                                              |==                                                                    |   4%  |                                                                              |===                                                                   |   4%  |                                                                              |====                                                                  |   5%  |                                                                              |====                                                                  |   6%  |                                                                              |=====                                                                 |   7%  |                                                                              |======                                                                |   8%  |                                                                              |======                                                                |   9%  |                                                                              |=======                                                               |  10%  |                                                                              |========                                                              |  11%  |                                                                              |========                                                              |  12%  |                                                                              |=========                                                             |  13%  |                                                                              |==========                                                            |  14%  |                                                                              |==========                                                            |  15%  |                                                                              |===========                                                           |  16%  |                                                                              |============                                                          |  16%  |                                                                              |============                                                          |  17%  |                                                                              |============                                                          |  18%  |                                                                              |=============                                                         |  19%  |                                                                              |==============                                                        |  19%  |                                                                              |==============                                                        |  20%  |                                                                              |==============                                                        |  21%  |                                                                              |===============                                                       |  21%  |                                                                              |================                                                      |  22%  |                                                                              |================                                                      |  23%  |                                                                              |================                                                      |  24%  |                                                                              |=================                                                     |  24%  |                                                                              |==================                                                    |  25%  |                                                                              |==================                                                    |  26%  |                                                                              |===================                                                   |  27%  |                                                                              |====================                                                  |  28%  |                                                                              |====================                                                  |  29%  |                                                                              |=====================                                                 |  30%  |                                                                              |======================                                                |  31%  |                                                                              |======================                                                |  32%  |                                                                              |=======================                                               |  33%  |                                                                              |========================                                              |  34%  |                                                                              |========================                                              |  35%  |                                                                              |=========================                                             |  36%  |                                                                              |==========================                                            |  36%  |                                                                              |==========================                                            |  37%  |                                                                              |==========================                                            |  38%  |                                                                              |===========================                                           |  39%  |                                                                              |============================                                          |  39%  |                                                                              |============================                                          |  40%  |                                                                              |============================                                          |  41%  |                                                                              |=============================                                         |  41%  |                                                                              |==============================                                        |  42%  |                                                                              |==============================                                        |  43%  |                                                                              |==============================                                        |  44%  |                                                                              |===============================                                       |  44%  |                                                                              |================================                                      |  45%  |                                                                              |================================                                      |  46%  |                                                                              |=================================                                     |  47%  |                                                                              |==================================                                    |  48%  |                                                                              |==================================                                    |  49%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================                                  |  51%  |                                                                              |====================================                                  |  52%  |                                                                              |=====================================                                 |  53%  |                                                                              |======================================                                |  54%  |                                                                              |======================================                                |  55%  |                                                                              |=======================================                               |  56%  |                                                                              |========================================                              |  56%  |                                                                              |========================================                              |  57%  |                                                                              |========================================                              |  58%  |                                                                              |=========================================                             |  59%  |                                                                              |==========================================                            |  59%  |                                                                              |==========================================                            |  60%  |                                                                              |==========================================                            |  61%  |                                                                              |===========================================                           |  61%  |                                                                              |============================================                          |  62%  |                                                                              |============================================                          |  63%  |                                                                              |============================================                          |  64%  |                                                                              |=============================================                         |  64%  |                                                                              |==============================================                        |  65%  |                                                                              |==============================================                        |  66%  |                                                                              |===============================================                       |  67%  |                                                                              |================================================                      |  68%  |                                                                              |================================================                      |  69%  |                                                                              |=================================================                     |  70%  |                                                                              |==================================================                    |  71%  |                                                                              |==================================================                    |  72%  |                                                                              |===================================================                   |  73%  |                                                                              |====================================================                  |  74%  |                                                                              |====================================================                  |  75%  |                                                                              |=====================================================                 |  76%  |                                                                              |======================================================                |  76%  |                                                                              |======================================================                |  77%  |                                                                              |======================================================                |  78%  |                                                                              |=======================================================               |  79%  |                                                                              |========================================================              |  79%  |                                                                              |========================================================              |  80%  |                                                                              |========================================================              |  81%  |                                                                              |=========================================================             |  81%  |                                                                              |==========================================================            |  82%  |                                                                              |==========================================================            |  83%  |                                                                              |==========================================================            |  84%  |                                                                              |===========================================================           |  84%  |                                                                              |============================================================          |  85%  |                                                                              |============================================================          |  86%  |                                                                              |=============================================================         |  87%  |                                                                              |==============================================================        |  88%  |                                                                              |==============================================================        |  89%  |                                                                              |===============================================================       |  90%  |                                                                              |================================================================      |  91%  |                                                                              |================================================================      |  92%  |                                                                              |=================================================================     |  93%  |                                                                              |==================================================================    |  94%  |                                                                              |==================================================================    |  95%  |                                                                              |===================================================================   |  96%  |                                                                              |====================================================================  |  96%  |                                                                              |====================================================================  |  97%  |                                                                              |====================================================================  |  98%  |                                                                              |===================================================================== |  99%  |                                                                              |======================================================================|  99%  |                                                                              |======================================================================| 100%</code></pre>
+<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">bf.exp</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="bookdown-demo_files/figure-html/Ex2Solution-1.png" width="672"></div>
+<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">bf.robust</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/changeofevidence/man/bfRobustness.html">bfRobustness</a></span><span class="op">(</span><span class="va">bf.exp</span>,prior.loc <span class="op">=</span><span class="fl">0</span> <span class="op">)</span></span></code></pre></div>
+<pre><code>## Highest BF = 25788787 with prior: Cauchy(0, 1)</code></pre>
+<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">bf.robust</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="bookdown-demo_files/figure-html/Ex2Solution-2.png" width="672"></div>
+<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/describe.html">describe</a></span><span class="op">(</span><span class="va">OC</span> <span class="op">~</span><span class="va">Campus</span>, data<span class="op">=</span> <span class="va">priolo</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+##  Descriptive statistics by group 
+## Campus: A
+##    vars  n mean   sd median trimmed mad min max range skew kurtosis   se
+## OC    1 78 0.82 1.33      0    0.58   0   0   5     5 1.45     1.13 0.15
+## ------------------------------------------------------------ 
+## Campus: B
+##    vars  n mean  sd median trimmed mad min max range  skew kurtosis   se
+## OC    1 67  2.3 1.3      3    2.33   0   0   5     5 -0.47    -0.65 0.16</code></pre>
+<p>Le facteur de Bayes indique que nous avons des preuves extrêmes en faveur d’une différence de consommation de surces entre les deux campsus, où les étudiant·es sur le campus B, avec une moyenne à 2.3 sucres, consomment plus de sucres que ceux sur le campus A, avec une moyenne de 0.82 sucres.
+L’analyse séquentielle indique que la tendance est globalement toujours ascendante au fur et à mesure que l’échantillon grandit et nos résultats ne semblent pas être influencés par le choix du prior puisque les analyses de robustesses montrent que les facteurs bayésiens sont supérieur à <span class="math inline">\(10^6\)</span> pour l’ensemble des distributions a priori examinées.</p>
+</details>
+</div>
+<div id="exercice-3" class="section level2" number="13.3">
+<h2>
+<span class="header-section-number">13.3</span> Exercice 3<a class="anchor" aria-label="anchor" href="#exercice-3"><i class="fas fa-link"></i></a>
+</h2>
+<p>Testez si l’acceptabilité du nudge dépend de la force de l’attitude.
+Vous n’avez pas d’étude qui vous offre des balises. Adoptez une attitude qui vous permettra de justifier vos résultats.</p>
+<p>Vérifiez entre quelles valeurs se situent l’intervalle de crédibilité.</p>
+<details><summary>
+Cliquez pour la solution
+</summary><p>L’analyse que nous devons réaliser est une corrélation. Il est raisonnable de penser que la force de l’attitude favorisent l’acceptabilité du nudge mais on peut difficilement imaginer qu’une personne s’oppose farouchement à la mise en place d’une politique visant à adopter des comportements (alimentaires) plus sains. On peut imaginer une corrélation moyenne au maximum.</p>
+<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/bayestestR/">bayestestR</a></span><span class="op">)</span></span>
+<span><span class="va">corr.out</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/correlationBF.html">correlationBF</a></span><span class="op">(</span></span>
+<span>y<span class="op">=</span><span class="va">priolo</span><span class="op">$</span><span class="va">MOY_ACC</span>,</span>
+<span>x<span class="op">=</span><span class="va">priolo</span><span class="op">$</span><span class="va">MOY_FORCE</span>,</span>
+<span>rscale <span class="op">=</span> <span class="st">"medium"</span>,</span>
+<span>nullInterval <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>posterior <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># calcul de l'intervalle de crédibilité </span></span>
+<span><span class="va">post</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/posterior-methods.html">posterior</a></span><span class="op">(</span><span class="va">corr.out</span>, iterations <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
+<span><span class="va">post2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/recompute-methods.html">recompute</a></span><span class="op">(</span><span class="va">post</span>, iterations <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">post2</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="bookdown-demo_files/figure-html/Ex3Solution-1.png" width="672"></div>
+<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">post2</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Iterations = 1:10000
+## Thinning interval = 1 
+## Number of chains = 1 
+## Sample size per chain = 10000 
+## 
+## 1. Empirical mean and standard deviation for each variable,
+##    plus standard error of the mean:
+## 
+##        Mean      SD  Naive SE Time-series SE
+## rho  0.1857 0.07901 0.0007901      0.0008677
+## zeta 0.1891 0.08232 0.0008232      0.0009015
+## 
+## 2. Quantiles for each variable:
+## 
+##         2.5%    25%    50%    75%  97.5%
+## rho  0.02499 0.1328 0.1874 0.2391 0.3374
+## zeta 0.02500 0.1336 0.1896 0.2439 0.3511</code></pre>
+<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">post2</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span></span>
+<span><span class="co">## OU</span></span>
+<span><span class="va">corr.out.post</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/correlationBF.html">correlationBF</a></span><span class="op">(</span></span>
+<span>y<span class="op">=</span><span class="va">priolo</span><span class="op">$</span><span class="va">MOY_ACC</span>,</span>
+<span>x<span class="op">=</span><span class="va">priolo</span><span class="op">$</span><span class="va">MOY_FORCE</span>,</span>
+<span>rscale <span class="op">=</span> <span class="st">"medium"</span>,</span>
+<span>nullInterval <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>posterior <span class="op">=</span> <span class="cn">T</span>, iterations <span class="op">=</span><span class="fl">1000</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">ci_hdi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://easystats.github.io/bayestestR/reference/ci.html">ci</a></span><span class="op">(</span><span class="va">corr.out.post</span>, method <span class="op">=</span> <span class="st">"HDI"</span><span class="op">)</span></span>
+<span><span class="va">ci_hdi</span></span></code></pre></div>
+<pre><code>## Highest Density Interval
+## 
+## Parameter |      95% HDI
+## ------------------------
+## rho       | [0.03, 0.33]
+## zeta      | [0.03, 0.34]</code></pre>
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">priolo</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">MOY_FORCE</span>, y <span class="op">=</span><span class="va">MOY_ACC</span><span class="op">)</span> <span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">stat_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>,</span>
+<span>              formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span>,</span>
+<span>              geom <span class="op">=</span> <span class="st">"smooth"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="bookdown-demo_files/figure-html/Ex3Solution-2.png" width="672"></div>
+<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">rs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fl">.05</span>, to <span class="op">=</span><span class="fl">2</span>, by <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>, <span class="fl">1</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">27</span><span class="op">)</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># on veut pouvoir les calculer tous en même temps. </span></span>
+<span><span class="co"># pour cela, on va utiliser la fonction sapply qui va </span></span>
+<span><span class="co"># calculer le Bayes Factor pour tous les priors qu'on va lui donner (stockés dans rs)</span></span>
+<span><span class="va">bfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">rs</span>, </span>
+<span>              <span class="kw">function</span><span class="op">(</span><span class="va">r</span><span class="op">)</span> <span class="op">{</span> <span class="co"># on crée un fonction spécifiquement pour notre propos</span></span>
+<span>                <span class="co"># on utilise exactement la même fonction que celle qu'on utilise pour un seul BF</span></span>
+<span>                <span class="co"># mais au lieu de donner une valeur au rscale, on lui donne l'argument r</span></span>
+<span>                <span class="co"># qui seront fourni par tous les rs              </span></span>
+<span>                <span class="va">bf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/correlationBF.html">correlationBF</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">priolo</span><span class="op">$</span><span class="va">MOY_ACC</span>,</span>
+<span>                                    x<span class="op">=</span><span class="va">priolo</span><span class="op">$</span><span class="va">MOY_FORCE</span>,</span>
+<span>                                    rscale <span class="op">=</span> <span class="va">r</span>,</span>
+<span>                                    nullInterval <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>                                    posterior <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
+<span>                <span class="co"># on extrait les facteurs de Bayes</span></span>
+<span>                <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/extractBF-methods.html">extractBF</a></span><span class="op">(</span><span class="va">bf</span><span class="op">)</span><span class="op">$</span><span class="va">bf</span></span>
+<span>              <span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># on crée un data.frame pour faire le graphique </span></span>
+<span><span class="va">robust</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">rs</span>, <span class="va">bfs</span><span class="op">)</span> </span>
+<span><span class="co"># on réalise le graphique </span></span>
+<span><span class="va">robust</span><span class="op">$</span><span class="va">bfs</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">robust</span><span class="op">$</span><span class="va">bfs</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">robust</span><span class="op">$</span><span class="va">rs</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">robust</span><span class="op">$</span><span class="va">rs</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co"># on fait la ligne qui touche tous les points</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">robust</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">rs</span>, y<span class="op">=</span><span class="va">bfs</span><span class="op">)</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span> </span>
+<span>  <span class="co"># on donne le titre à l'axe des x</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Choix de la distribution a priori"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="co"># on donne le titre à l'axe des y</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Valeur du facteur de Bayes"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="co"># on met en valeur les points des priors prédéfinis dans BayesFactor</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">robust</span><span class="op">[</span><span class="fl">41</span><span class="op">:</span><span class="fl">44</span>,<span class="op">]</span>, colour<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="co"># On indique sur le graphique à quel prior chaque point correspond *</span></span>
+<span>  <span class="co"># en faisant un petit décalage afin d'éviter une superposition avec le point</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, label <span class="op">=</span> <span class="va">robust</span><span class="op">$</span><span class="va">rs</span><span class="op">[</span><span class="fl">41</span><span class="op">:</span><span class="fl">44</span><span class="op">]</span>, </span>
+<span>           x <span class="op">=</span> <span class="va">robust</span><span class="op">$</span><span class="va">rs</span><span class="op">[</span><span class="fl">41</span><span class="op">:</span><span class="fl">44</span><span class="op">]</span><span class="op">+</span><span class="fl">0.2</span>,</span>
+<span>           y <span class="op">=</span> <span class="va">robust</span><span class="op">$</span><span class="va">bfs</span><span class="op">[</span><span class="fl">41</span><span class="op">:</span><span class="fl">44</span><span class="op">]</span><span class="op">+</span><span class="fl">0.2</span>, colour <span class="op">=</span><span class="st">"blue"</span>, check_overlap <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="bookdown-demo_files/figure-html/Ex3Solution-3.png" width="672"></div>
+<p>En l’occurence le facteur de Bayes indique des preuves en faveur d’une corrélation. Néanmoins cette corrélation est faible car pour des prior supérieur à medium, le facteur de Bayes tend vers une zone d’incertitude.</p>
+</details>
+</div>
+<div id="exercice-4" class="section level2" number="13.4">
+<h2>
+<span class="header-section-number">13.4</span> Exercice 4<a class="anchor" aria-label="anchor" href="#exercice-4"><i class="fas fa-link"></i></a>
+</h2>
+<p>Vérifiez si l’écart sur la consommation observée de sucres entre les deux campus ne peut pas s’expliquer par des différences de consommations entre les étudiant·es qui préexistaient.</p>
+<p>Soyez cohérent·e dans le choix du prior
+<strong>Attention</strong>, le jeu de données doit être préparé pour pouvoir réaliser l’analyse correctement.</p>
+<details><summary>
+Cliquez pour la solution
+</summary><div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/reshape">reshape2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span> <span class="va">priolo2</span><span class="op">&lt;-</span><span class="va">priolo</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span> <span class="va">Participants</span>, <span class="va">Campus</span>, <span class="va">UC</span>, <span class="va">OC</span><span class="op">)</span></span>
+<span> <span class="va">priolo.long</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/reshape2/man/melt.html">melt</a></span><span class="op">(</span><span class="va">priolo2</span>, id.vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Participants"</span>, <span class="st">"Campus"</span><span class="op">)</span>, variable.name<span class="op">=</span><span class="st">"Localisation"</span>, value.name<span class="op">=</span><span class="st">"Quantite"</span><span class="op">)</span></span>
+<span> </span>
+<span><span class="va">priolo.long</span><span class="op">$</span><span class="va">Participants</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">priolo.long</span><span class="op">$</span><span class="va">Participants</span><span class="op">)</span></span>
+<span> </span>
+<span><span class="va">priolo.long</span><span class="op">$</span><span class="va">Campus</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">priolo.long</span><span class="op">$</span><span class="va">Campus</span><span class="op">)</span></span>
+<span> </span>
+<span><span class="va">aov.out</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/generalTestBF.html">generalTestBF</a></span><span class="op">(</span><span class="va">Quantite</span> <span class="op">~</span> <span class="va">Campus</span><span class="op">*</span><span class="va">Localisation</span> <span class="op">+</span> <span class="va">Participants</span>, data <span class="op">=</span> <span class="va">priolo.long</span>, whichRandom <span class="op">=</span> <span class="st">"Participants"</span>,</span>
+<span>neverExclude<span class="op">=</span><span class="st">"Participants"</span>, progress<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">aov.out</span></span></code></pre></div>
+<pre><code>## Bayes factor analysis
+## --------------
+## [1] Campus + Participants                                      : 28426215199734063104   ±1.11%
+## [2] Localisation + Participants                                : 947828574210654        ±1.15%
+## [3] Campus + Localisation + Participants                       : 20219846208840953856   ±1.45%
+## [4] Campus + Localisation + Campus:Localisation + Participants : 6785407505150435655680 ±4.63%
+## [5] Participants                                               : 1322151571553891       ±0%
+## 
+## Against denominator:
+##   Intercept only 
+## ---
+## Bayes factor type: BFlinearModel, JZS</code></pre>
+<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">aov.out</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">/</span><span class="va">aov.out</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span></code></pre></div>
+<pre><code>## Bayes factor analysis
+## --------------
+## [1] Campus + Localisation + Campus:Localisation + Participants : 335.5816 ±4.85%
+## 
+## Against denominator:
+##   Quantite ~ Campus + Localisation + Participants 
+## ---
+## Bayes factor type: BFlinearModel, JZS</code></pre>
+<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/describe.by.html">describeBy</a></span><span class="op">(</span><span class="va">Quantite</span> <span class="op">~</span> <span class="va">Campus</span><span class="op">*</span><span class="va">Localisation</span>, data<span class="op">=</span><span class="va">priolo.long</span>,mat<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##           item group1 group2 vars  n      mean       sd median  trimmed    mad
+## Quantite1    1      A     UC    1 78 1.0000000 1.338734      0 0.828125 0.0000
+## Quantite2    2      B     UC    1 67 1.6567164 1.492935      1 1.527273 1.4826
+## Quantite3    3      A     OC    1 78 0.8205128 1.326489      0 0.578125 0.0000
+## Quantite4    4      B     OC    1 67 2.2985075 1.302851      3 2.327273 0.0000
+##           min max range       skew     kurtosis        se
+## Quantite1   0   5     5  0.9938842 -0.006426413 0.1515817
+## Quantite2   0   5     5  0.4270383 -0.942605220 0.1823911
+## Quantite3   0   5     5  1.4468359  1.127781997 0.1501953
+## Quantite4   0   5     5 -0.4731558 -0.651910476 0.1591686</code></pre>
+<p>Les moyennes indiquent que les personnes sur le campus A consomment moins de sucre que celles sur le campus B et que cette différence est d’autant plus marquée sur la différence observée par rapport à la différence rapportée de leur consommation habituelle. Le rapport entre le facteur de Bayes avec l’interaction et sans l’interaction est de 287, ce qui représente des preuves extrêmes en faveur de la présence de l’interaction.</p>
+</details>
+</div>
+<div id="exercice-5" class="section level2" number="13.5">
+<h2>
+<span class="header-section-number">13.5</span> Exercice 5<a class="anchor" aria-label="anchor" href="#exercice-5"><i class="fas fa-link"></i></a>
+</h2>
+<p>Drouillet et al. <span class="citation">(<a href="references.html#ref-Drouillet2018">2018</a>)</span> ont voulu savoir dans quelle mesure les capacités d’apprentissage procédural étaient impliqués dans la compréhension des métaphores.
+Dans cette étude, les participants devaient décider si une phrase avait du sens ou non. Les participant·es étaient amené·es à traiter des expressions littérales (balayer la poussière), métaphorique (balayer ses soucis) ou pour lesquels il était très difficile de trouver un sens (balayer les nuages).
+D’après Ullman <span class="citation">(<a href="references.html#ref-Ullman2001">2001</a>)</span>, la mémoire déclarative est impliquée dans le lexique (et donc dans la compréhension) tandis que la mémoire procédurale devrait être impliquée dans la grammaire. Ainsi, la mémoire procédurale ne devrait pas être impliqué dans la compréhension des métaphores.
+Vérifiez si la mémoire déclarative (évaluée par le Mill Hill), les capacités d’apprentissage implicite (indice_app_impl) ou leur interaction permet de prédire la difficulté que représente de traiter une métaphore par rapport à une phrase littérale (indice1.meta.baseline) et la faciliter que représente de traiter une métaphore par rapport à une phrase qui n’a pas sens (indice2.meta.baseline).</p>
+<p>Les données sont disponibles dans le fichier “<a href="https://osf.io/hjdb9/files/osfstorage/68656592e4c1dfb2e49feded">Drouillet2018.xlsx</a>”</p>
+<p>Réalisez l’analyse adaptée et interpréter les résultats.</p>
+<details><summary>
+Cliquez pour la solution
+</summary><div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">drouillet</span><span class="op">&lt;-</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_xlsx</a></span><span class="op">(</span><span class="st">"./Exercices/Drouillet2018.xlsx"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">drouillet</span><span class="op">$</span><span class="va">participant</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">drouillet</span><span class="op">$</span><span class="va">participant</span><span class="op">)</span></span>
+<span><span class="va">lm.out1.1</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/lmBF.html">lmBF</a></span><span class="op">(</span><span class="va">indice1.meta.baseline</span> <span class="op">~</span>  <span class="va">Mill_Hill</span> <span class="op">+</span> <span class="va">participant</span>, </span>
+<span>             data <span class="op">=</span> <span class="va">drouillet</span>, whichRandom <span class="op">=</span> <span class="st">"participant"</span><span class="op">)</span></span>
+<span><span class="va">lm.out1.2</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/lmBF.html">lmBF</a></span><span class="op">(</span><span class="va">indice1.meta.baseline</span> <span class="op">~</span> <span class="va">indice_app_impl</span><span class="op">+</span> <span class="va">Mill_Hill</span> <span class="op">+</span> <span class="va">participant</span>, </span>
+<span>             data <span class="op">=</span> <span class="va">drouillet</span>, whichRandom <span class="op">=</span> <span class="st">"participant"</span><span class="op">)</span></span>
+<span><span class="va">lm.out1.3</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/lmBF.html">lmBF</a></span><span class="op">(</span><span class="va">indice1.meta.baseline</span> <span class="op">~</span> <span class="va">indice_app_impl</span><span class="op">+</span> <span class="va">Mill_Hill</span> <span class="op">+</span></span>
+<span>                <span class="va">indice_app_impl</span><span class="op">:</span><span class="va">Mill_Hill</span><span class="op">+</span> <span class="va">participant</span>, </span>
+<span>             data <span class="op">=</span> <span class="va">drouillet</span>, whichRandom <span class="op">=</span> <span class="st">"participant"</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">lm.out2.1</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/lmBF.html">lmBF</a></span><span class="op">(</span><span class="va">indice2.meta.baseline</span> <span class="op">~</span>  <span class="va">Mill_Hill</span> <span class="op">+</span> <span class="va">participant</span>, </span>
+<span>             data <span class="op">=</span> <span class="va">drouillet</span>, whichRandom <span class="op">=</span> <span class="st">"participant"</span><span class="op">)</span></span>
+<span><span class="va">lm.out2.2</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/lmBF.html">lmBF</a></span><span class="op">(</span><span class="va">indice2.meta.baseline</span> <span class="op">~</span> <span class="va">indice_app_impl</span><span class="op">+</span> <span class="va">Mill_Hill</span> <span class="op">+</span> <span class="va">participant</span>, </span>
+<span>             data <span class="op">=</span> <span class="va">drouillet</span>, whichRandom <span class="op">=</span> <span class="st">"participant"</span><span class="op">)</span></span>
+<span><span class="va">lm.out2.3</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/lmBF.html">lmBF</a></span><span class="op">(</span><span class="va">indice2.meta.baseline</span> <span class="op">~</span> <span class="va">indice_app_impl</span><span class="op">+</span> <span class="va">Mill_Hill</span> <span class="op">+</span></span>
+<span>                <span class="va">indice_app_impl</span><span class="op">:</span><span class="va">Mill_Hill</span><span class="op">+</span> <span class="va">participant</span>, </span>
+<span>             data <span class="op">=</span> <span class="va">drouillet</span>, whichRandom <span class="op">=</span> <span class="st">"participant"</span><span class="op">)</span></span></code></pre></div>
+<p>Ces analyses montrent que la difficulté que rencontrent les personnes pour comprendre une métaphore par rapport à du langage littéral s’explique par l’interaction entre la mémoire procédurale et la mémoire déclarative. Tous les autres modèles ne sont pas discriminants.</p>
+</details>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="comparaison-avec-lapproche-fr%C3%A9quentiste.html"><span class="header-section-number">12</span> Comparaison avec l’approche fréquentiste</a></div>
+<div class="next"><a href="conclusions.html"><span class="header-section-number">14</span> Conclusions</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#exercices"><span class="header-section-number">13</span> Exercices</a></li>
+<li>
+<a class="nav-link" href="#exemples-de-d%C3%A9monstration"><span class="header-section-number">13.1</span> Exemples de démonstration</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#le-t-de-student"><span class="header-section-number">13.1.1</span> Le t de Student</a></li>
+<li><a class="nav-link" href="#la-corr%C3%A9lation"><span class="header-section-number">13.1.2</span> La corrélation</a></li>
+<li><a class="nav-link" href="#la-r%C3%A9gression"><span class="header-section-number">13.1.3</span> La régression</a></li>
+<li><a class="nav-link" href="#lanalyse-de-variance"><span class="header-section-number">13.1.4</span> L’analyse de variance</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#exercice-2"><span class="header-section-number">13.2</span> Exercice 2</a></li>
+<li><a class="nav-link" href="#exercice-3"><span class="header-section-number">13.3</span> Exercice 3</a></li>
+<li><a class="nav-link" href="#exercice-4"><span class="header-section-number">13.4</span> Exercice 4</a></li>
+<li><a class="nav-link" href="#exercice-5"><span class="header-section-number">13.5</span> Exercice 5</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Initiation à l’approche bayésienne du traitement des données</strong>" was written by Nicolas Stefaniak. It was last built on 2025-07-09.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
