@@ -117,16 +117,16 @@ Pour beaucoup de chercheurs et de chercheuses, cette affirmation va tellement à
 <span>                   mean <span class="op">=</span> <span class="fl">100</span>, <span class="co"># la moyenne</span></span>
 <span>                   sd <span class="op">=</span> <span class="fl">15</span> <span class="op">)</span> <span class="co"># l'écart-type</span></span>
 <span><span class="va">echantillon</span></span></code></pre></div>
-<pre><code>##  [1] 120.81463  90.98593  50.97039 105.07190  97.74540  90.79006 110.69123
-##  [8] 111.59649 111.22932 103.81360 110.45246 121.76581 131.97369  91.75430
-## [15]  69.40027  75.56120 116.65785  89.42626 110.20521  92.42593</code></pre>
+<pre><code>##  [1] 117.32455 100.38607  97.26186  97.73803  74.30480 100.01734  78.50460
+##  [8] 120.18137  86.48119 120.63042  92.20060 102.39478 113.64074 115.12224
+## [15] 100.81696  99.57066 107.04358  98.07774 111.77886 121.55289</code></pre>
 <p>Evidemment la moyenne n’aura pas exactement la valeur de 100, ni l’écart-type une valeur de 15. Ces valeurs pourront être plus ou moins éloignées en fonction des aléas de l’échantillonnage. Pour notre échantillon, nous obtenons :</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">echantillon</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] 100.1666</code></pre>
+<pre><code>## [1] 102.7515</code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">echantillon</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] 19.44035</code></pre>
+<pre><code>## [1] 13.45205</code></pre>
 <p>Grâce à cette fonction, nous allons pouvoir simuler un grand nombre de <em>t de Student</em> grâce à la fonction <code>t.test</code> et obtenir les probabilités associées à ces analyses. Le code ci-dessous va illustrer cette opération lorsqu’on ne fait qu’un seul <em>t de Student</em> où les deux échantillons ont la même moyenne.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># on fait une comparaison de deux populations dont les moyennes sont strictement égales </span></span>
@@ -141,13 +141,13 @@ Pour beaucoup de chercheurs et de chercheuses, cette affirmation va tellement à
 ##  Welch Two Sample t-test
 ## 
 ## data:  rnorm(n = 20, mean = 0, sd = 1) and rnorm(n = 20, mean = 0, sd = 1)
-## t = -0.18122, df = 36.322, p-value = 0.8572
+## t = 1.1992, df = 34.095, p-value = 0.2387
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.7228546  0.6042382
+##  -0.2760154  1.0708535
 ## sample estimates:
-##  mean of x  mean of y 
-## -0.2204420 -0.1611339</code></pre>
+##   mean of x   mean of y 
+##  0.08136081 -0.31605825</code></pre>
 <p>Nous allons faire cela à présent un grand nombre de fois (à savoir 200 000) avec deux types de situations : une situation où on compare deux échantillons issus de la même population (<strong>condition absence de différence</strong>) et une situation où on compare deux échantillons issus de deux populations dont la différence est de 0.2 écarts-types (<strong>condition différence</strong>). Le code pour reproduire cette simulation est présenté ci-dessous. Cette simulation représente 200 000 études qui sont réalisées, dont l’hypothèse est fondée pour la moitié d’entre elles et non fondée pour l’autre moitié.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1234</span><span class="op">)</span> <span class="co"># le fait de mettre une graine assure une reproductibilité des résultats </span></span>
@@ -792,7 +792,7 @@ Figure 6.2: Proportion d’effets significatifs sur 1000 essais pour différente
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Initiation à l’approche bayésienne du traitement des données</strong>" was written by Nicolas Stefaniak. It was last built on 2025-07-09.</p>
+    <p>"<strong>Initiation à l’approche bayésienne du traitement des données</strong>" was written by Nicolas Stefaniak. It was last built on 2025-07-17.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
