@@ -98,24 +98,23 @@
 <h1>
 <span class="header-section-number">5</span> Les axiomes des probabilités<a class="anchor" aria-label="anchor" href="#les-axiomes-des-probabilit%C3%A9s"><i class="fas fa-link"></i></a>
 </h1>
-<p>Les statistiques, et les méthodes d’inférences sont intimement liées aux probabilités et aux théories sous-jacentes à celles-ci. Dans cette section, on va commencer par présenter quelques axiomes des probabilités, en particulier ceux dont nous aurons besoin pour comprendre l’inférence bayésienne, on évoquera dans le chapitre suivant ce que signifie (ou non) les probabilités dans l’inférence de Neyman-Person <span class="citation">(<a href="references.html#ref-Neyman1933">1933</a>)</span>, et on terminera les chapitres sur les probabilités en se questionnant la nature objective ou subjective des probabilités.</p>
+<p>Les statistiques, et les méthodes d’inférences sont intimement liées aux probabilités et aux théories sous-jacentes à celles-ci. Dans cette section, on va commencer par présenter quelques axiomes des probabilités, en particulier ceux dont nous aurons besoin pour comprendre l’inférence bayésienne, on évoquera dans le chapitre suivant ce que signifie (ou non) les probabilités dans l’inférence de Neyman-Person <span class="citation">(<a href="references.html#ref-Neyman1933">1933</a>)</span>, et on terminera en se questionnant sur la nature objective ou subjective des probabilités.</p>
 <p>Dans ce chapitre, il ne s’agit pas de faire une présentation avancée de ce que sont les probabilités mais de rappeler les contraintes des axiomes probabilistes qui vont contraindre l’application de Bayes. Pour le formuler autrement, l’application du théorème de Bayes doit respecter les axiomes des probabilités pour que son application ait du sens. Cela ne semble pas déraisonnable comme contrainte.</p>
 <p>Ainsi, il est bon de se rappeler que :</p>
 <ol style="list-style-type: decimal">
-<li>La valeur d’une probabilité est toujours située entre 0 et 1</li>
-<li>La probabilité que l’événement A ou B survienne, en admettant que A et B ne peuvent pas survenir en même temps, est égal à la somme de leur probabilité respective, P(A)+P(B). Par exemple, on ne peut pas avoir pile et face en même temps et la probabilité d’avoir pile ou face est bien égale à 1 si on attribue une probabilité de 0,5 à chacun des deux événements.<br>
-</li>
+<li>La valeur d’une probabilité est toujours située entre 0 et 1 ;</li>
+<li>La probabilité que l’événement A ou B survienne, en admettant que A et B ne peuvent pas survenir en même temps, est égal à la somme de leur probabilité respective, P(A)+P(B). Par exemple, on ne peut pas avoir pile et face en même temps et la probabilité d’avoir pile ou face est bien égale à 1 si on attribue une probabilité de 0,5 à chacun des deux événements ;</li>
 <li>P(A <span class="math inline">\(\cap\)</span> B) = P(A) × P(B|A). P(A <span class="math inline">\(\cap\)</span> B) est la probabilité que A et B surviennent en même temps tandis que P(B|A) est la probabilité de B lorsqu’on connait A, c’est-à-dire la probabilité de B si A est vrai.</li>
 </ol>
-<p>Prenons le cas d’un jeu de cartes de 52 cartes et nous voulons déterminer la probabilité d’obtenir l’as de coeur. Une solution simple est de considérer qu’il y a un seul as de coeur sur les 52 cartes, ce qui signifie que cette probabilité vaut 1/52. Une version alternative est de considérer que, dans un jeu de cartes, il y a 4 as sur 52, ce qui signifie que la probabilité d’obtenir un as est de 1/13, que la probabilité d’avoir une carte rouge est de 1/2 et que, parmi les cartes rouges, il y a 1 chance sur 2 que ce soit du coeur.</p>
+<p>Prenons le cas d’un jeu de 52 cartes et nous voulons déterminer la probabilité d’obtenir l’as de coeur. Une solution simple est de considérer qu’il y a un seul as de coeur sur les 52 cartes, ce qui signifie que cette probabilité vaut 1/52. Une version alternative est de considérer que, dans un jeu de cartes, il y a 4 as sur 52, ce qui signifie que la probabilité d’obtenir un as est de 1/13, que la probabilité d’avoir une carte rouge est de 1/2 et que, parmi les cartes rouges, il y a 1 chance sur 2 que ce soit du coeur.</p>
 <div class="figure">
 <img src="theorie/animation.gif" alt="Représentation visuelle des probabilités conjointes."><p class="caption">
 (#fig:Fig2.1)Représentation visuelle des probabilités conjointes.
 </p>
 </div>
 <p>Ainsi, en décomposant le calcul, on obtient :</p>
-<p><span class="math display">\[ \frac{1}{13} \times \frac{1}{2} \times \frac{1}{2} = \frac{1}{52} \approx 0.019\]</span> Cette illustration, très simple, montre que le raisonnement qu’on peut appliquer pour P(A <span class="math inline">\(\cap\)</span> B) est également valable pour des plus complexes ou on aurait par exemple P(A <span class="math inline">\(\cap\)</span> B <span class="math inline">\(\cap\)</span> C <span class="math inline">\(\cap\)</span> D).</p>
-<p>Ces quelques notions suffiront pour pouvoir comprendre comment on applique le théorème de Bayes dans le cadre des inférences statistiques. Tout</p>
+<p><span class="math display">\[ \frac{1}{13} \times \frac{1}{2} \times \frac{1}{2} = \frac{1}{52} \approx 0.019\]</span> Cette illustration, très simple, montre que le raisonnement qu’on peut appliquer pour P(A <span class="math inline">\(\cap\)</span> B) est également valable pour des cas plus complexes où on aurait par exemple P(A <span class="math inline">\(\cap\)</span> B <span class="math inline">\(\cap\)</span> C <span class="math inline">\(\cap\)</span> D).</p>
+<p>Ces quelques notions suffiront pour pouvoir comprendre comment on applique le théorème de Bayes dans le cadre des inférences statistiques.</p>
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="accumuler-les-informations..html"><span class="header-section-number">4</span> Accumuler les informations.</a></div>
@@ -138,7 +137,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Initiation à l’approche bayésienne du traitement des données</strong>" was written by Nicolas Stefaniak. It was last built on 2025-07-17.</p>
+    <p>"<strong>Initiation à l’approche bayésienne du traitement des données</strong>" was written by Nicolas Stefaniak. It was last built on 2025-07-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
